@@ -1,0 +1,80 @@
+{
+	"name": "shahiristorante",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"start": "expo start --dev-client",
+		"android": "expo run:android",
+		"ios": "expo run:ios",
+		"web": "expo start --web"
+	},
+	"dependencies": {
+		"@react-native-async-storage/async-storage": "~1.15.0",
+		"@react-navigation/bottom-tabs": "^6.2.0",
+		"@react-navigation/native": "^6.0.8",
+		"@react-navigation/native-stack": "^6.5.0",
+		"axios": "^0.26.1",
+		"expo": "~44.0.2",
+		"expo-font": "~10.0.4",
+		"expo-linear-gradient": "~11.0.3",
+		"expo-splash-screen": "~0.14.1",
+		"expo-status-bar": "~1.2.0",
+		"expo-updates": "~0.11.6",
+		"react": "17.0.1",
+		"react-dom": "17.0.1",
+		"react-native": "0.64.3",
+		"react-native-gesture-handler": "~2.1.0",
+		"react-native-paper": "^4.11.2",
+		"react-native-safe-area-context": "3.3.2",
+		"react-native-web": "0.17.1"
+	},
+	"expo": {
+		"autolinking": {
+			"exclude": [
+				"expo-keep-awake",
+				"expo-ads-admob",
+				"expo-ads-facebook",
+				"expo-analytics-amplitude",
+				"expo-analytics-segment",
+				"expo-app-auth",
+				"expo-apple-authentication",
+				"expo-background-fetch",
+				"expo-task-manager",
+				"unimodules-task-manager-interface",
+				"unimodules-app-loader",
+				"expo-barcode-scanner",
+				"expo-battery",
+				"expo-blur",
+				"expo-brightness",
+				"expo-camera",
+				"expo-calendar",
+				"expo-cellular",
+				"expo-clipboard",
+				"expo-contacts",
+				"expo-crypto",
+				"expo-document-picker",
+				"expo-face-detector",
+				"expo-firebase-analytics",
+				"expo-firebase-core",
+				"expo-in-app-purchases",
+				"expo-localization",
+				"expo-location",
+				"expo-local-authentication",
+				"expo-mail-composer",
+				"expo-screen-capture",
+				"expo-screen-orientation",
+				"expo-secure-store",
+				"expo-sensors",
+				"expo-sharing",
+				"expo-sms",
+				"expo-speech",
+				"expo-tracking-transparency",
+				"expo-google-sign-in"
+			]
+		}
+	},
+	"devDependencies": {
+		"@babel/core": "^7.12.9"
+	},
+	"private": true
+}

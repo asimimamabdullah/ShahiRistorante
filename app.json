@@ -1,0 +1,20 @@
+{
+	"expo": {
+		"name": "Shahi Ristorante",
+		"slug": "ShahiRistorante",
+		"version": "1.0.5",
+		"assetBundlePatterns": ["**/*"],
+		"android": {
+			"package": "com.ShahiRistorante",
+			"versionCode": 5,
+			"permissions": []
+		},
+		"splash": {
+			"image": "./assets/images/splash_2.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"icon": "./assets/icons/dinner_1024.png",
+		"privacy": "public"
+	}
+}
