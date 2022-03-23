@@ -17,6 +17,7 @@ const Orders = ({ navigation }) => {
 	const { userAPI } = useStateValue();
 	const [updateOrders] = state.updateOrders;
 	const [orders, setOrders] = userAPI.orders;
+	const [isLoggedIn] = userAPI.isLoggedIn;
 	const { userID } = userAPI;
 	const [loading, setLoading] = useState(false);
 

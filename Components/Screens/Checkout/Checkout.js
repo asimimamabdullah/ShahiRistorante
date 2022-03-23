@@ -11,6 +11,8 @@ import {
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { RadioButton } from "react-native-paper";
+import NetInfo from "@react-native-community/netinfo";
+
 import { axiosURL, icons } from "../../../constants";
 import { useStateValue } from "../../../hooks/StateProvider";
 import { getBasketTotal } from "../../../reducer";
@@ -140,6 +142,15 @@ const Checkout = ({ navigation }) => {
 					navigation.navigate("Congratulations", {
 						orderNumber: time,
 					});
+				})
+				.catch((err) => {
+					NetInfo.fetch().then((state) => {
+						if (!state.isConnected) {
+							// Alert.alert("Please connect to the internet");
+							Alert.alert("Please check your internet connection");
+						}
+					});
+					setDisabled(false);
 				});
 		} catch (error) {
 			Alert.alert(error.response.data.error);

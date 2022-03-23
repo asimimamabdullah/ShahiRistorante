@@ -34,6 +34,7 @@ const Products = ({ navigation }) => {
 				data={[]}
 				ListHeaderComponent={<Header navigation={navigation} />}
 				renderItem={<></>}
+				scrollEnabled={false}
 			/>
 
 			<FlatList

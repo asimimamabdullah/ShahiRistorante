@@ -4,26 +4,20 @@ import {
 	View,
 	Image,
 	TouchableOpacity,
-	Button,
 	TouchableHighlight,
 	Animated,
 	Easing,
-	Pressable,
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "../../../constants";
 import { useStateValue } from "../../../hooks/StateProvider";
-import BasketAPI from "../../api/BasketAPI";
 
 const Product = ({ route, navigation }) => {
 	const { item } = route.params;
 	const [quantity, setQuantity] = useState(0);
 	const state = useStateValue();
 	const [basket, setBasket] = state.basket;
-	// const [basket, setBasket] = BasketAPI().basket;
-
-	// console.log("basket1: ", basket);
 
 	const anim = new Animated.Value(0);
 
@@ -51,7 +45,7 @@ const Product = ({ route, navigation }) => {
 			// speed: 30,
 			// stiffness: 200,
 			// damping: 4,
-			// bounciness: 25,
+			// bounciness: 50,
 			// mass: 1.1,
 		}).start();
 	}, [quantity]);
@@ -61,7 +55,6 @@ const Product = ({ route, navigation }) => {
 	}, [quantity]);
 
 	const addNum = (id) => {
-		// console.log("item: ", item);
 		const index = basket.findIndex((i) => i.product_id === id);
 
 		if (index === -1) {
@@ -142,6 +135,42 @@ const Product = ({ route, navigation }) => {
 				/>
 			</TouchableOpacity>
 
+			<TouchableOpacity
+				style={{
+					position: "absolute",
+					top: 40,
+					right: 10,
+					width: 50,
+					height: 50,
+					borderRadius: 25,
+					backgroundColor: "#ffffff",
+					alignItems: "center",
+					justifyContent: "center",
+				}}
+				onPress={() => navigation.navigate("Basket")}>
+				<Image
+					source={icons?.basket}
+					style={{ height: 30, width: 30, tintColor: "#ff4593" }}
+				/>
+
+				<Animated.Text
+					style={{
+						position: "absolute",
+						top: 5,
+						right: 5,
+						backgroundColor: "#ff4593",
+						color: "#ffffff",
+						borderRadius: 13,
+						width: 22,
+						height: 22,
+						textAlign: "center",
+						textAlignVertical: "center",
+						transform: [{ scale: scale }],
+					}}>
+					{quantity}
+				</Animated.Text>
+			</TouchableOpacity>
+
 			<View
 				style={{
 					flexDirection: "row",
@@ -202,7 +231,7 @@ const Product = ({ route, navigation }) => {
 						justifyContent: "center",
 					}}
 					onPress={() => subtractNum(item?.product_id)}>
-					<Text style={{ color: "white", fontSize: 40, lineHeight: 41 }}>
+					<Text style={{ color: "white", fontSize: 40, lineHeight: 40 }}>
 						-
 					</Text>
 				</TouchableOpacity>
@@ -213,7 +242,7 @@ const Product = ({ route, navigation }) => {
 						paddingHorizontal: 5,
 						height: 35,
 						textAlign: "center",
-						alignItems: "center",
+						textAlignVertical: "center",
 						fontSize: 25,
 						color: "#424141",
 						transform: [{ scale: scale }],
@@ -228,10 +257,14 @@ const Product = ({ route, navigation }) => {
 						height: 40,
 						borderRadius: 20,
 						backgroundColor: "#ff4593",
-						justifyContent: "center",
-						alignItems: "center",
 					}}>
-					<Text style={{ color: "white", fontSize: 25, lineHeight: 30 }}>
+					<Text
+						style={{
+							color: "white",
+							fontSize: 25,
+							textAlign: "center",
+							textAlignVertical: "center",
+						}}>
 						+
 					</Text>
 				</TouchableOpacity>
@@ -251,9 +284,10 @@ const Product = ({ route, navigation }) => {
 						style={{
 							color: "white",
 							textAlign: "center",
-							fontFamily: "Poppins-Regular",
+							// fontFamily: "Poppins-Regular",
 							fontSize: 15,
-							lineHeight: 23,
+							textAlignVertical: "center",
+							// lineHeight: 23,
 						}}>
 						Add to cart
 					</Text>

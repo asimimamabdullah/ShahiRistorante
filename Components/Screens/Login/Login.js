@@ -12,6 +12,7 @@ import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
 
 import { icons, axiosURL } from "../../../constants";
 import { useStateValue } from "../../../hooks/StateProvider";
@@ -34,6 +35,7 @@ const Login = ({ navigation }) => {
 		try {
 			if (!email || !password) {
 				Alert.alert("Please fill the form below");
+				setDisabled(false);
 				return;
 			}
 			await axios
@@ -44,12 +46,21 @@ const Login = ({ navigation }) => {
 				.then((response) => {
 					setToken(response?.data.accessToken);
 					AsyncStorage.setItem("isLoggedIn", "true");
+					AsyncStorage.setItem("refreshToken", response.data.accessToken);
 				})
 				.then(() => {
 					setIsLoggedIn(true);
 				})
 				.then(() => {
 					navigation.navigate("Home");
+				})
+				.catch((err) => {
+					NetInfo.fetch().then((state) => {
+						if (!state.isConnected) {
+							Alert.alert("Please check your internet connection");
+						}
+					});
+					setDisabled(false);
 				});
 		} catch (error) {
 			Alert.alert(error.response.data.error);
@@ -85,7 +96,11 @@ const Login = ({ navigation }) => {
 					<TextInput
 						placeholder="Email"
 						defaultValue={email}
-						onChangeText={setEmail}
+						value={email}
+						onChangeText={(txt) => {
+							const val = txt.split(" ").join("");
+							setEmail(val);
+						}}
 						style={{ ...styles.textInput }}
 					/>
 					<TextInput
@@ -95,26 +110,6 @@ const Login = ({ navigation }) => {
 						placeholder="Password"
 						style={{ ...styles.textInput, marginTop: 20 }}
 					/>
-
-					{/* forgot password offer line  */}
-
-					<View
-						style={{
-							paddingHorizontal: 30,
-							paddingTop: 10,
-						}}>
-						<Text style={{ ...styles.fonts, textAlign: "right" }}>
-							Forgot Password{" "}
-							<Text
-								style={{
-									textDecorationLine: "underline",
-									color: "blue",
-								}}
-								onPress={() => navigation.navigate("Home")}>
-								here
-							</Text>
-						</Text>
-					</View>
 				</View>
 
 				{/* Login button  */}
@@ -162,14 +157,14 @@ const Login = ({ navigation }) => {
 				{/* create account offer line  */}
 				<View>
 					<Text style={{ ...styles.fonts, textAlign: "center" }}>
-						Or create an account{" "}
+						Not already a member{" "}
 						<Text
 							style={{
 								textDecorationLine: "underline",
 								color: "blue",
 							}}
 							onPress={() => navigation.navigate("Register")}>
-							here
+							click here
 						</Text>
 					</Text>
 				</View>

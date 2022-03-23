@@ -19,7 +19,7 @@ const Congratulations = ({ navigation, route }) => {
 					<TouchableOpacity onPress={() => navigation.navigate("Home")}>
 						<Image
 							source={icons.home}
-							style={{ height: 35, width: 35, tintColor: "#ff4593" }}
+							style={{ height: 30, width: 30, tintColor: "#ff4593" }}
 						/>
 					</TouchableOpacity>
 				</View>
@@ -92,7 +92,7 @@ const Congratulations = ({ navigation, route }) => {
 							}}>
 							<Image
 								source={icons.openRight}
-								style={{ width: 20, height: 20 }}
+								style={{ width: 20, height: 20, tintColor: "#ff4593" }}
 							/>
 						</View>
 					</TouchableOpacity>

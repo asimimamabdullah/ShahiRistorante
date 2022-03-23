@@ -13,7 +13,8 @@ import React, { useState, useEffect, useCallback, memo } from "react";
 import { images } from "./../../../constants";
 import { useStateValue } from "../../../hooks/StateProvider";
 import { getBasketTotal } from "../../../reducer";
-import BasketAPI from "../../api/BasketAPI";
+// import BasketAPI from "../../api/BasketAPI";
+import BasketItem from "./BasketItem/BasketItem";
 
 const Basket = ({ navigation }) => {
 	const state = useStateValue();
@@ -22,42 +23,42 @@ const Basket = ({ navigation }) => {
 	const [isLoggedIn] = state.userAPI.isLoggedIn;
 	const [postalData] = state.userAPI.postalData;
 
-	const handleAdd = (id) => {
-		const index = basket?.findIndex((i) => i.product_id === id);
+	// 	const handleAdd = (id) => {
+	// 		const index = basket?.findIndex((i) => i.product_id === id);
+	//
+	// 		if (index === -1) {
+	// 			setBasket([...basket, { ...item, quantity: 1 }]);
+	// 		}
+	//
+	// 		if (index !== -1) {
+	// 			let newArray = [...basket];
+	// 			newArray[index] = {
+	// 				...newArray[index],
+	// 				quantity: newArray[index].quantity + 1,
+	// 			};
+	// 			setBasket(newArray);
+	// 		}
+	// 	};
 
-		if (index === -1) {
-			setBasket([...basket, { ...item, quantity: 1 }]);
-		}
-
-		if (index !== -1) {
-			let newArray = [...basket];
-			newArray[index] = {
-				...newArray[index],
-				quantity: newArray[index].quantity + 1,
-			};
-			setBasket(newArray);
-		}
-	};
-
-	const handleSubtract = (id) => {
-		const index = basket.findIndex((i) => i.product_id === id);
-
-		if (index !== -1) {
-			if (basket[index].quantity > 1) {
-				let newArray = [...basket];
-				newArray[index] = {
-					...newArray[index],
-					quantity: newArray[index].quantity - 1,
-				};
-				setBasket(newArray);
-			}
-			if (basket[index].quantity === 1) {
-				let newArray = [...basket];
-				newArray.splice(index, 1);
-				setBasket(newArray);
-			}
-		}
-	};
+	// 	const handleSubtract = (id) => {
+	// 		const index = basket.findIndex((i) => i.product_id === id);
+	//
+	// 		if (index !== -1) {
+	// 			if (basket[index].quantity > 1) {
+	// 				let newArray = [...basket];
+	// 				newArray[index] = {
+	// 					...newArray[index],
+	// 					quantity: newArray[index].quantity - 1,
+	// 				};
+	// 				setBasket(newArray);
+	// 			}
+	// 			if (basket[index].quantity === 1) {
+	// 				let newArray = [...basket];
+	// 				newArray.splice(index, 1);
+	// 				setBasket(newArray);
+	// 			}
+	// 		}
+	// 	};
 	return (
 		<View style={{ flex: 1 }}>
 			{/* Estimated Delivery first div  */}
@@ -83,85 +84,81 @@ const Basket = ({ navigation }) => {
 					</View>
 				</View>
 
-				<Text
-					style={{
-						...styles.basketMainTitle,
-					}}>
-					Basket Items
-				</Text>
+				<Text style={{ ...styles.basketMainTitle }}>Basket Items</Text>
 
 				{/* Basket Items  */}
 				<View style={{ paddingHorizontal: 10 }}>
 					{basket?.map((item, index) => (
 						// Basket Item
-						<View style={{ ...styles.basketItemContainer }} key={index}>
-							{/* Item's Upper div */}
-							<View style={{ ...styles.basketItemUpperDiv }}>
-								{/* Image and name  */}
-								<View
-									style={{
-										...styles.basketItemUpperDivImageName,
-										flex: 0.8,
-									}}>
-									{/* Item Image  */}
-									{item?.images ? (
-										<Image
-											source={{ uri: item?.images.url }}
-											resizeMode="cover"
-											style={{
-												...styles.basketItemUpperDivImageStyle,
-											}}
-										/>
-									) : null}
-
-									{/* Item Name  */}
-									<Text style={{ marginLeft: 20, ...styles.fonts }}>
-										{item?.title}
-									</Text>
-								</View>
-
-								{/* Item Price  */}
-								<View>
-									<Text style={{ ...styles.fontsBold, fontSize: 15 }}>
-										€ {item?.price}
-									</Text>
-								</View>
-							</View>
-
-							{/* bottom button and quantity control  */}
-							<View style={{ ...styles.basketItemQuantityControl }}>
-								<TouchableOpacity
-									style={{ ...styles.basketItemQuantityControlButton }}
-									onPress={() => handleSubtract(item?.product_id)}>
-									<Text
-										style={{
-											...styles.basketItemQuantityControlButtonText,
-										}}>
-										-
-									</Text>
-								</TouchableOpacity>
-
-								<Text
-									style={{
-										...styles.quantityControlAnimatedText,
-									}}>
-									{item?.quantity}
-								</Text>
-
-								<TouchableOpacity
-									onPress={() => handleAdd(item?.product_id)}
-									style={{
-										...styles.basketItemQuantityControlButton,
-									}}>
-									<Text
-										style={{
-											...styles.basketItemQuantityControlButtonText,
-										}}>
-										+
-									</Text>
-								</TouchableOpacity>
-							</View>
-						</View>
+						<BasketItem item={item} key={index} />
+						// 						<View style={{ ...styles.basketItemContainer }} key={index}>
+						// 							{/* Item's Upper div */}
+						// 							<View style={{ ...styles.basketItemUpperDiv }}>
+						// 								{/* Image and name  */}
+						// 								<View
+						// 									style={{
+						// 										...styles.basketItemUpperDivImageName,
+						// 										flex: 0.8,
+						// 									}}>
+						// 									{/* Item Image  */}
+						// 									{item?.images ? (
+						// 										<Image
+						// 											source={{ uri: item?.images.url }}
+						// 											resizeMode="cover"
+						// 											style={{
+						// 												...styles.basketItemUpperDivImageStyle,
+						// 											}}
+						// 										/>
+						// 									) : null}
+						//
+						// 									{/* Item Name  */}
+						// 									<Text style={{ marginLeft: 20, ...styles.fonts }}>
+						// 										{item?.title}
+						// 									</Text>
+						// 								</View>
+						//
+						// 								{/* Item Price  */}
+						// 								<View>
+						// 									<Text style={{ ...styles.fontsBold, fontSize: 15 }}>
+						// 										€ {item?.price}
+						// 									</Text>
+						// 								</View>
+						// 							</View>
+						//
+						// 							{/* bottom button and quantity control  */}
+						// 							<View style={{ ...styles.basketItemQuantityControl }}>
+						// 								<TouchableOpacity
+						// 									style={{ ...styles.basketItemQuantityControlButton }}
+						// 									onPress={() => handleSubtract(item?.product_id)}>
+						// 									<Text
+						// 										style={{
+						// 											...styles.basketItemQuantityControlButtonText,
+						// 										}}>
+						// 										-
+						// 									</Text>
+						// 								</TouchableOpacity>
+						//
+						// 								<Text
+						// 									style={{
+						// 										...styles.quantityControlAnimatedText,
+						// 									}}>
+						// 									{item?.quantity}
+						// 								</Text>
+						//
+						// 								<TouchableOpacity
+						// 									onPress={() => handleAdd(item?.product_id)}
+						// 									style={{
+						// 										...styles.basketItemQuantityControlButton,
+						// 									}}>
+						// 									<Text
+						// 										style={{
+						// 											...styles.basketItemQuantityControlButtonText,
+						// 										}}>
+						// 										+
+						// 									</Text>
+						// 								</TouchableOpacity>
+						// 							</View>
+						// 						</View>
 					))}
 				</View>
 
@@ -225,7 +222,6 @@ const Basket = ({ navigation }) => {
 					style={{ ...styles.bottomCheckoutButton }}
 					onPress={() => {
 						const r = parseInt(postalData?.minOrder);
-						// console.log(r > getBasketTotal(basket));
 						isLoggedIn
 							? r > getBasketTotal(basket)
 								? Alert.alert(

@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
 
 import { icons, axiosURL } from "../../../../constants";
 import { useStateValue } from "../../../../hooks/StateProvider";
@@ -37,6 +38,13 @@ const RegisterAddress = ({ navigation }) => {
 					.get(`${axiosURL}/dashboard/onepostalcode/${postalCode}`)
 					.then((response) => {
 						setPostalResult(response.data.code);
+					})
+					.catch((err) => {
+						NetInfo.fetch().then((state) => {
+							if (!state.isConnected) {
+								Alert.alert("Please check your internet connection");
+							}
+						});
 					});
 			} catch (error) {
 				Alert.alert(
@@ -66,6 +74,13 @@ const RegisterAddress = ({ navigation }) => {
 						navigation.navigate("Home");
 						setToken(response.data.accessToken);
 						AsyncStorage.setItem("isLoggedIn", "true");
+					})
+					.catch((err) => {
+						NetInfo.fetch().then((state) => {
+							if (!state.isConnected) {
+								Alert.alert("Please check your internet connection");
+							}
+						});
 					});
 			}
 		} catch (error) {

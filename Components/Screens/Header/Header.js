@@ -30,7 +30,7 @@ const Header = ({ navigation }) => {
 				<TouchableOpacity>
 					<Text
 						style={{
-							lineHeight: 30,
+							lineHeight: 25,
 							fontSize: 19,
 							color: "#ff4593",
 							fontWeight: "bold",

@@ -90,19 +90,28 @@ const Register = ({ navigation }) => {
 								<TextInput
 									placeholder="First Name"
 									defaultValue={firstName}
-									onChangeText={setFirstName}
+									onChangeText={(txt) => {
+										const val = txt.split(" ").join("");
+										setFirstName(val);
+									}}
 									style={{ ...styles.textInput }}
 								/>
 								<TextInput
 									placeholder="Last Name"
 									defaultValue={lastName}
-									onChangeText={setLastName}
+									onChangeText={(txt) => {
+										const val = txt.split(" ").join("");
+										setLastName(val);
+									}}
 									style={{ ...styles.textInput }}
 								/>
 								<TextInput
 									placeholder="Email"
 									defaultValue={email}
-									onChangeText={setEmail}
+									onChangeText={(txt) => {
+										const val = txt.split(" ").join("");
+										setEmail(val);
+									}}
 									style={{ ...styles.textInput }}
 								/>
 							</ScrollView>

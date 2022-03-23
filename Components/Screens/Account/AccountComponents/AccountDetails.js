@@ -5,10 +5,13 @@ import {
 	ScrollView,
 	TouchableOpacity,
 	Image,
+	Alert,
 } from "react-native";
 import React from "react";
 import axios from "axios";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
 
 import { icons, images, axiosURL } from "../../../../constants";
 import { useStateValue } from "../../../../hooks/StateProvider";
@@ -16,9 +19,34 @@ import { useStateValue } from "../../../../hooks/StateProvider";
 const AccountDetails = ({ navigation }) => {
 	const { userAPI } = useStateValue();
 	const [isLoggedIn, setIsLoggedIn] = userAPI.isLoggedIn;
-	const [user] = userAPI.user;
-	const [checkUserCallback, setCheckUserCallback] = userAPI.checkUserCallback;
+	const [user, setUser] = userAPI.user;
+	// const [checkUserCallback, setCheckUserCallback] = userAPI.checkUserCallback;
 	const [postalCode, setPostalCode] = userAPI.postalCode;
+
+	const handleLogout = async () => {
+		try {
+			await axios
+				.get(`${axiosURL}/user/logout`)
+				.then(() => setIsLoggedIn(false))
+				.then(() => setPostalCode(null))
+				.then(async () => {
+					await AsyncStorage.removeItem("isLoggedIn");
+					await AsyncStorage.removeItem("refreshToken");
+					setUser(null);
+					navigation.navigate("Home");
+				})
+				.catch((err) => {
+					NetInfo.fetch().then((state) => {
+						if (!state.isConnected) {
+							Alert.alert("Please check your internet connection");
+						}
+					});
+				});
+		} catch (error) {
+			Alert.alert(error.response.data.error);
+		}
+	};
+
 	return (
 		<View style={{ backgroundColor: "#f7f7f7", flex: 1 }}>
 			<SafeAreaView>
@@ -129,12 +157,7 @@ const AccountDetails = ({ navigation }) => {
 						<View style={styles.settingsSectionContainer}>
 							{/* Logout div  */}
 							<TouchableOpacity
-								onPress={async () => {
-									await axios
-										.get(`${axiosURL}/user/logout`)
-										.then(() => setIsLoggedIn(false))
-										.then(() => setPostalCode(null));
-								}}
+								onPress={handleLogout}
 								style={{
 									...styles.settingsSectionDiv,
 									paddingVertical: 15,
