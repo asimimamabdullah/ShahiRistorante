@@ -2,11 +2,11 @@
 	"expo": {
 		"name": "Shahi Ristorante",
 		"slug": "ShahiRistorante",
-		"version": "1.0.6",
+		"version": "1.0.7",
 		"assetBundlePatterns": ["**/*"],
 		"android": {
 			"package": "com.ShahiRistorante",
-			"versionCode": 6,
+			"versionCode": 7,
 			"permissions": []
 		},
 		"splash": {
