@@ -18,6 +18,8 @@ import { useStateValue } from "../../../../hooks/StateProvider";
 
 const AccountDetails = ({ navigation }) => {
 	const { userAPI } = useStateValue();
+	const state = useStateValue();
+	const [language, setLanguage] = state.language;
 	const [isLoggedIn, setIsLoggedIn] = userAPI.isLoggedIn;
 	const [user, setUser] = userAPI.user;
 	// const [checkUserCallback, setCheckUserCallback] = userAPI.checkUserCallback;
@@ -82,14 +84,18 @@ const AccountDetails = ({ navigation }) => {
 									lineHeight: 20,
 									...styles.fonts,
 								}}>
-								Edit Profile
+								{language === "en"
+									? "Edit Profile"
+									: "Modifica Profilo"}
 							</Text>
 						</TouchableOpacity>
 					</View>
 
 					{/* Settings Section  */}
 					<View style={styles.settingsMainSection}>
-						<Text style={styles.settingsSectionTitle}>Content</Text>
+						<Text style={styles.settingsSectionTitle}>
+							{language === "en" ? "Content" : "Contenuto"}
+						</Text>
 						{/* Settings Section's Container  */}
 						<View style={{ ...styles.settingsSectionContainer }}>
 							{/* Setting div  */}
@@ -103,7 +109,7 @@ const AccountDetails = ({ navigation }) => {
 									/>
 
 									<Text style={styles.settingsDivText}>
-										Favourites
+										{language === "en" ? "Favourites" : "Preferite"}
 									</Text>
 								</View>
 								<Image
@@ -122,7 +128,9 @@ const AccountDetails = ({ navigation }) => {
 										style={styles.settingsDivImg}
 									/>
 
-									<Text style={styles.settingsDivText}>Orders</Text>
+									<Text style={styles.settingsDivText}>
+										{language === "en" ? "Orders" : "Ordini"}
+									</Text>
 								</View>
 								<Image
 									source={icons.openRight}
@@ -147,13 +155,45 @@ const AccountDetails = ({ navigation }) => {
 									style={styles.settingsDivC2Img}
 								/>
 							</TouchableOpacity> */}
+
+							{/* Setting div 4 */}
+							<TouchableOpacity
+								style={{ ...styles.settingsSectionDiv }}
+								onPress={() => {
+									if (language === "en") setLanguage("it");
+									else if (language === "it") setLanguage("en");
+								}}>
+								<View style={{ ...styles.settingsDivC1 }}>
+									<Image
+										source={icons.language}
+										style={styles.settingsDivImg}
+									/>
+
+									<Text style={styles.settingsDivText}>
+										{language === "en" ? "Language" : "Linguaggio"}
+									</Text>
+									<Text
+										style={{
+											...styles.settingsDivText,
+											color: "red",
+										}}>
+										{language === "en" ? `"English"` : `"Italian"`}
+									</Text>
+								</View>
+								{/* <Image
+									source={icons.openRight}
+									style={styles.settingsDivC2Img}
+								/> */}
+							</TouchableOpacity>
 						</View>
 					</View>
 
 					{/* Logout Section */}
 
 					<View style={styles.settingsMainSection}>
-						<Text style={styles.settingsSectionTitle}>Logout</Text>
+						<Text style={styles.settingsSectionTitle}>
+							{language === "en" ? "Logout" : "Disconnettersi"}
+						</Text>
 						<View style={styles.settingsSectionContainer}>
 							{/* Logout div  */}
 							<TouchableOpacity
@@ -168,7 +208,9 @@ const AccountDetails = ({ navigation }) => {
 										style={styles.settingsDivImg}
 									/>
 
-									<Text style={styles.settingsDivText}>Logout</Text>
+									<Text style={styles.settingsDivText}>
+										{language === "en" ? "Logout" : "Disconnettersi"}
+									</Text>
 								</View>
 							</TouchableOpacity>
 						</View>

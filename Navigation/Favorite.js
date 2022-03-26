@@ -6,6 +6,7 @@ import { useStateValue } from "../hooks/StateProvider";
 
 const Favorite = ({ navigation }) => {
 	const state = useStateValue();
+	const [language] = state.language;
 	const [products] = state.productsAPI.products;
 	const [favoriteProducts, setFavoriteProducts] = state.favoriteProducts;
 	const [productsRender, setProductsRender] = useState([]);
@@ -24,7 +25,10 @@ const Favorite = ({ navigation }) => {
 		<View style={{ paddingHorizontal: 20, paddingVertical: 30 }}>
 			{favoriteProducts.length < 1 ? (
 				<Text style={{ fontSize: 17, fontFamily: "Poppins-Regular" }}>
-					You have no favorite products at this time!
+					{language === "en"
+						? "You have no favorite products at this time"
+						: "Non hai prodotti preferiti in questo momento"}
+					!
 				</Text>
 			) : (
 				<FlatList
@@ -43,7 +47,9 @@ const Favorite = ({ navigation }) => {
 									color: "black",
 									fontFamily: "Poppins-Regular",
 								}}>
-								Favourite Products
+								{language === "en"
+									? "Favourite Products"
+									: "prodotti preferiti"}
 							</Text>
 						</View>
 					}

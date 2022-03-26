@@ -19,6 +19,7 @@ import { useStateValue } from "../../../../hooks/StateProvider";
 
 const RegisterAddress = ({ navigation }) => {
 	const state = useStateValue();
+	const [language] = state.language;
 	const [token, setToken] = state.token;
 	const { userAPI } = useStateValue();
 	const [address, setAddress] = userAPI.address;
@@ -118,7 +119,9 @@ const RegisterAddress = ({ navigation }) => {
 							marginTop: 40,
 							...styles.fonts,
 						}}>
-						Address Info
+						{language === "en"
+							? "Address Info"
+							: "informazioni sull'indirizzo"}
 					</Text>
 
 					<Text
@@ -129,7 +132,9 @@ const RegisterAddress = ({ navigation }) => {
 							paddingHorizontal: 30,
 							...styles.fonts,
 						}}>
-						Enter Your Complete Address Information
+						{language === "en"
+							? "Enter Your Complete Address Information"
+							: "Inserisci le informazioni complete sull'indirizzo"}
 					</Text>
 
 					<View
@@ -137,14 +142,20 @@ const RegisterAddress = ({ navigation }) => {
 							flex: 1,
 						}}>
 						<ScrollView
-							contentContainerStyle={{ justifyContent: "center" }}>
+							contentContainerStyle={{
+								justifyContent: "center",
+								paddingVertical: 10,
+							}}>
 							<Text
 								style={{
 									...styles.fonts,
 									fontSize: 11,
 									marginLeft: 10,
 								}}>
-								Check Postal Code: *
+								{language === "en"
+									? "Check Postal Code"
+									: "Controlla il codice postale"}
+								: *
 							</Text>
 							<TextInput
 								placeholder="Postal Code (required), e.g. 52250"
@@ -159,7 +170,10 @@ const RegisterAddress = ({ navigation }) => {
 									fontSize: 11,
 									marginLeft: 10,
 								}}>
-								Enter Address *
+								{language === "en"
+									? "Enter Address"
+									: "Inserisci indirizzo"}{" "}
+								*
 							</Text>
 							<TextInput
 								placeholder="Enter Address"
@@ -174,7 +188,10 @@ const RegisterAddress = ({ navigation }) => {
 									fontSize: 11,
 									marginLeft: 10,
 								}}>
-								Enter Building Address *
+								{language === "en"
+									? "Enter Building Address"
+									: "Immettere l'indirizzo dell'edificio"}{" "}
+								*
 							</Text>
 							<TextInput
 								placeholder="Adress Line 1"
@@ -189,7 +206,10 @@ const RegisterAddress = ({ navigation }) => {
 									fontSize: 11,
 									marginLeft: 10,
 								}}>
-								Enter Phone No.*
+								{language === "en"
+									? "Enter Phone No."
+									: "Inserisci il numero di telefono"}
+								*
 							</Text>
 							<TextInput
 								placeholder="Phone No."
@@ -215,7 +235,7 @@ const RegisterAddress = ({ navigation }) => {
 							paddingVertical: 10,
 							paddingHorizontal: 20,
 							backgroundColor: "white",
-							width: "45%",
+							minWidth: "45%",
 							flexDirection: "row",
 							justifyContent: "space-between",
 						}}
@@ -227,7 +247,7 @@ const RegisterAddress = ({ navigation }) => {
 								color: "black",
 								...styles.fonts,
 							}}>
-							Sign up
+							{language === "en" ? "Sign up" : "Iscrizione"}
 						</Text>
 
 						<Image

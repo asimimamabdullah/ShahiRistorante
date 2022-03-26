@@ -4,9 +4,10 @@ import { icons } from "../../../constants";
 import { useStateValue } from "../../../hooks/StateProvider";
 
 const Header = ({ navigation }) => {
-	const { userAPI } = useStateValue();
-	const [user] = userAPI.user;
-	const [isLoggedIn] = userAPI.isLoggedIn;
+	const state = useStateValue();
+	const [language, setLanguage] = state.language;
+	const [user] = state.userAPI.user;
+	const [isLoggedIn] = state.userAPI.isLoggedIn;
 	return (
 		<View
 			style={{
@@ -25,7 +26,28 @@ const Header = ({ navigation }) => {
 					paddingHorizontal: 10,
 					paddingVertical: 10,
 				}}>
-				<View style={{ width: 25, height: 25 }}></View>
+				<TouchableOpacity
+					onPress={() => {
+						if (language === "en") setLanguage("it");
+						else if (language === "it") setLanguage("en");
+					}}
+					style={{
+						justifyContent: "center",
+						backgroundColor: "#ff4593",
+						minWidth: 50,
+						borderRadius: 15,
+					}}>
+					<Text
+						style={{
+							textAlign: "center",
+							textAlignVertical: "center",
+							color: "white",
+							textTransform: "uppercase",
+							letterSpacing: 1,
+						}}>
+						{language}
+					</Text>
+				</TouchableOpacity>
 
 				<TouchableOpacity>
 					<Text

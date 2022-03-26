@@ -14,6 +14,7 @@ import ProductsItem from "../../HomeComponents/Products/ProductsItem";
 
 const FoodDelivery = ({ navigation }) => {
 	const state = useStateValue();
+	const [language] = state.language;
 	const [categories] = state.categoriesAPI.categories;
 	const [selectedCategory, setSelectedCategory] = state.selectedCategory;
 	const [products] = state.productsAPI.products;
@@ -47,7 +48,9 @@ const FoodDelivery = ({ navigation }) => {
 					marginHorizontal: 20,
 					marginBottom: 30,
 				}}>
-				Select your food and place order
+				{language === "en"
+					? "Select your food and place an order"
+					: "Seleziona il tuo cibo ed effettua un ordine"}
 			</Text>
 
 			<Text
@@ -59,7 +62,9 @@ const FoodDelivery = ({ navigation }) => {
 					marginBottom: 20,
 					color: "#aaa",
 				}}>
-				We will deliver it to you
+				{language === "en"
+					? "We will deliver it to you"
+					: "Te lo consegneremo noi"}
 			</Text>
 
 			<View>

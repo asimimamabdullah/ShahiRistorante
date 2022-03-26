@@ -12,6 +12,8 @@ export const StateProvider = ({ children }) => {
 	const [token, setToken] = useState("");
 	const [updateOrders, setUpdateOrders] = useState(false);
 
+	const [language, setLanguage] = useState("it"); // will use only "it" or "en"
+
 	const state = {
 		productsAPI: ProductsAPI(),
 		categoriesAPI: CategoriesAPI(),
@@ -22,6 +24,7 @@ export const StateProvider = ({ children }) => {
 		selectedCategory: [selectedCategory, setSelectedCategory],
 		token: [token, setToken],
 		updateOrders: [updateOrders, setUpdateOrders],
+		language: [language, setLanguage],
 	};
 
 	return (

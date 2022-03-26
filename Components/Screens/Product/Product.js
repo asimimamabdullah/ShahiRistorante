@@ -17,6 +17,7 @@ const Product = ({ route, navigation }) => {
 	const { item } = route.params;
 	const [quantity, setQuantity] = useState(0);
 	const state = useStateValue();
+	const [language] = state.language;
 	const [basket, setBasket] = state.basket;
 
 	const anim = new Animated.Value(0);
@@ -289,7 +290,7 @@ const Product = ({ route, navigation }) => {
 							textAlignVertical: "center",
 							// lineHeight: 23,
 						}}>
-						Add to cart
+						{language === "en" ? "Add to cart" : "Aggiungi al carrello"}
 					</Text>
 				</TouchableHighlight>
 			</View>

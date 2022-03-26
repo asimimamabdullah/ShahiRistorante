@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import React, { memo } from "react";
 import { icons } from "../../../../constants";
+import { useStateValue } from "../../../../hooks/StateProvider";
 
 const AskAccount = ({ navigation }) => {
+	const state = useStateValue();
+	const [language] = state.language;
 	return (
 		<View style={{ backgroundColor: "#fff", height: "100%" }}>
 			{/* Header login section  */}
@@ -15,18 +18,29 @@ const AskAccount = ({ navigation }) => {
 					justifyContent: "space-between",
 				}}>
 				<Text style={{ ...styles.fonts, paddingVertical: 10 }}>
-					Already a customer?
+					{language === "en" ? "Already a customer?" : "già cliente?"}
 				</Text>
 
 				<TouchableOpacity
 					style={{
 						backgroundColor: "transparent",
 						paddingHorizontal: 20,
-						paddingVertical: 10,
+						// paddingVertical: 7,
+						borderRadius: 60,
+						backgroundColor: "#ff4593",
+
 						...styles.fonts,
 					}}
 					onPress={() => navigation.navigate("Login")}>
-					<Text style={{ color: "#000000" }}>Login</Text>
+					<Text
+						style={{
+							color: "#fff",
+							textAlignVertical: "center",
+							textAlign: "center",
+							flex: 1,
+						}}>
+						{language === "en" ? "Login" : "Accesso"}
+					</Text>
 				</TouchableOpacity>
 			</View>
 
@@ -138,7 +152,7 @@ const AskAccount = ({ navigation }) => {
 						paddingHorizontal: 20,
 						...styles.fonts,
 					}}>
-					Let's get started!
+					{language === "en" ? "Let's get started" : "Iniziamo"}!
 				</Text>
 
 				<Text
@@ -148,7 +162,9 @@ const AskAccount = ({ navigation }) => {
 						color: "#bbb",
 						...styles.fonts,
 					}}>
-					Everything works better together
+					{language === "en"
+						? "Everything works better together"
+						: "Tutto funziona meglio insieme"}
 				</Text>
 			</View>
 
@@ -174,7 +190,7 @@ const AskAccount = ({ navigation }) => {
 							styles.text,
 							{ color: "white", textAlign: "center", fontSize: 18 },
 						]}>
-						Register
+						{language === "en" ? "Register" : "Registrati"}
 					</Text>
 					{/* </LinearGradient> */}
 				</TouchableOpacity>

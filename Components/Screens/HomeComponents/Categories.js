@@ -5,6 +5,7 @@ import { useStateValue } from "../../../hooks/StateProvider";
 
 const Categories = () => {
 	const state = useStateValue();
+	const [language] = state.language;
 
 	const [categories] = state.categoriesAPI.categories;
 	const [selectedCategory, setSelectedCategory] = state.selectedCategory;
@@ -19,7 +20,7 @@ const Categories = () => {
 					color: "black",
 					fontFamily: "Poppins-Regular",
 				}}>
-				Categories
+				{language === "en" ? "Categories" : "Categorie"}
 			</Text>
 
 			<FlatList

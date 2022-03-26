@@ -4,8 +4,9 @@ import { images } from "../../../../constants";
 import { useStateValue } from "../../../../hooks/StateProvider";
 
 const SliderPlace = ({ navigation }) => {
-	const { userAPI } = useStateValue();
-	const [user] = userAPI.user;
+	const state = useStateValue();
+	const [language] = state.language;
+	const [user] = state.userAPI.user;
 
 	return (
 		<View>
@@ -13,10 +14,15 @@ const SliderPlace = ({ navigation }) => {
 			<View style={{ ...styles.welcomeDivContainer }}>
 				<View>
 					<Text style={{ ...styles.fonts, fontSize: 20, lineHeight: 25 }}>
-						Welcome {user?.firstName ? user?.firstName : "here"}
+						{language === "en" ? "Welcome" : "Benvenuta"}{" "}
+						{user?.firstName
+							? user?.firstName
+							: language === "en"
+							? "here"
+							: "qui"}
 					</Text>
-					<Text style={{ ...styles.fonts, fontSize: 13, lineHeight: 18 }}>
-						Looking for food?{" "}
+					<Text style={{ ...styles.fonts, fontSize: 14, lineHeight: 18 }}>
+						{language === "en" ? "Looking for food" : "Cercando cibo"}?{" "}
 					</Text>
 				</View>
 
@@ -44,7 +50,7 @@ const SliderPlace = ({ navigation }) => {
 							fontSize: 19,
 							lineHeight: 25,
 						}}>
-						Food delivery
+						{language === "en" ? "Food delivery" : "Consegna del cibo"}
 					</Text>
 					<Text
 						style={{
@@ -52,7 +58,9 @@ const SliderPlace = ({ navigation }) => {
 							fontSize: 12,
 							lineHeight: 20,
 						}}>
-						Order your favourite food
+						{language === "en"
+							? "Order your favourite food"
+							: "Ordina il tuo cibo preferito"}
 					</Text>
 				</View>
 				<Image
@@ -77,7 +85,7 @@ const SliderPlace = ({ navigation }) => {
 							lineHeight: 25,
 							fontSize: 19,
 						}}>
-						Pick-Up
+						{language === "en" ? "Pick-Up" : "Porta via"}
 					</Text>
 					<Text
 						style={{
@@ -85,7 +93,9 @@ const SliderPlace = ({ navigation }) => {
 							lineHeight: 18,
 							fontSize: 12,
 						}}>
-						Save delivery cost
+						{language === "en"
+							? "Save delivery cost"
+							: "Risparmiare sui costi di consegna"}
 					</Text>
 				</View>
 				<Image

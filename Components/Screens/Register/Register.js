@@ -14,10 +14,11 @@ import { icons } from "../../../constants";
 import { useStateValue } from "../../../hooks/StateProvider";
 
 const Register = ({ navigation }) => {
-	const { userAPI } = useStateValue();
-	const [firstName, setFirstName] = userAPI.firstName;
-	const [lastName, setLastName] = userAPI.lastName;
-	const [email, setEmail] = userAPI.email;
+	const state = useStateValue();
+	const [language] = state.language;
+	const [firstName, setFirstName] = state.userAPI.firstName;
+	const [lastName, setLastName] = state.userAPI.lastName;
+	const [email, setEmail] = state.userAPI.email;
 
 	const handleNext = () => {
 		if (firstName && lastName && email) {
@@ -51,7 +52,7 @@ const Register = ({ navigation }) => {
 								style={{
 									...styles.headerText,
 								}}>
-								Sign up
+								{language === "en" ? "Sign up" : "Registrati"}
 							</Text>
 						</View>
 						<Text
@@ -61,7 +62,9 @@ const Register = ({ navigation }) => {
 								marginTop: 40,
 								...styles.fonts,
 							}}>
-							Register Form
+							{language === "en"
+								? "Register Form"
+								: "Modulo di registrazione"}
 						</Text>
 
 						<Text
@@ -71,7 +74,9 @@ const Register = ({ navigation }) => {
 								fontSize: 16,
 								...styles.fonts,
 							}}>
-							Fill up the form below
+							{language === "en"
+								? "Fill up the form below"
+								: "Compila il modulo sottostante"}
 						</Text>
 
 						<View
@@ -88,7 +93,11 @@ const Register = ({ navigation }) => {
 									justifyContent: "center",
 								}}>
 								<TextInput
-									placeholder="First Name"
+									placeholder={
+										language === "en"
+											? "First Name"
+											: "Nome di battesimo"
+									}
 									defaultValue={firstName}
 									onChangeText={(txt) => {
 										const val = txt.split(" ").join("");
@@ -97,7 +106,9 @@ const Register = ({ navigation }) => {
 									style={{ ...styles.textInput }}
 								/>
 								<TextInput
-									placeholder="Last Name"
+									placeholder={
+										language === "en" ? "Last Name" : "Cognome"
+									}
 									defaultValue={lastName}
 									onChangeText={(txt) => {
 										const val = txt.split(" ").join("");
@@ -129,7 +140,7 @@ const Register = ({ navigation }) => {
 								paddingVertical: 10,
 								paddingHorizontal: 20,
 								backgroundColor: "white",
-								width: "45%",
+								minWidth: "45%",
 								flexDirection: "row",
 								justifyContent: "space-between",
 							}}
@@ -137,11 +148,11 @@ const Register = ({ navigation }) => {
 							<Text
 								style={{
 									lineHeight: 30,
-									fontSize: 25,
+									fontSize: 23,
 									color: "black",
 									...styles.fonts,
 								}}>
-								Next
+								{language === "en" ? "Next" : "Seguente"}
 							</Text>
 
 							<Image

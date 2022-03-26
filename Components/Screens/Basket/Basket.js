@@ -18,8 +18,8 @@ import BasketItem from "./BasketItem/BasketItem";
 
 const Basket = ({ navigation }) => {
 	const state = useStateValue();
-	const [basket, setBasket] = state.basket;
-	const [quantity, setQuantity] = useState(0);
+	const [language] = state.language;
+	const [basket] = state.basket;
 	const [isLoggedIn] = state.userAPI.isLoggedIn;
 	const [postalData] = state.userAPI.postalData;
 
@@ -75,90 +75,26 @@ const Basket = ({ navigation }) => {
 
 					<View style={{ ...styles.firstDivInsideContainer }}>
 						<Text style={{ ...styles.fonts, fontSize: 16 }}>
-							Estimated Delivery
+							{language === "en"
+								? "Estimated Delivery"
+								: "Consegna stimata"}
 						</Text>
 
 						<Text style={{ ...styles.fonts, fontSize: 17 }}>
-							40 - 50 minutes
+							{language === "en" ? "40 - 50 minutes" : "40 - 50 minuti"}
 						</Text>
 					</View>
 				</View>
 
-				<Text style={{ ...styles.basketMainTitle }}>Basket Items</Text>
+				<Text style={{ ...styles.basketMainTitle }}>
+					{language === "en" ? "Basket Items" : "elementi del cestino"}
+				</Text>
 
 				{/* Basket Items  */}
 				<View style={{ paddingHorizontal: 10 }}>
 					{basket?.map((item, index) => (
 						// Basket Item
 						<BasketItem item={item} key={index} />
-						// 						<View style={{ ...styles.basketItemContainer }} key={index}>
-						// 							{/* Item's Upper div */}
-						// 							<View style={{ ...styles.basketItemUpperDiv }}>
-						// 								{/* Image and name  */}
-						// 								<View
-						// 									style={{
-						// 										...styles.basketItemUpperDivImageName,
-						// 										flex: 0.8,
-						// 									}}>
-						// 									{/* Item Image  */}
-						// 									{item?.images ? (
-						// 										<Image
-						// 											source={{ uri: item?.images.url }}
-						// 											resizeMode="cover"
-						// 											style={{
-						// 												...styles.basketItemUpperDivImageStyle,
-						// 											}}
-						// 										/>
-						// 									) : null}
-						//
-						// 									{/* Item Name  */}
-						// 									<Text style={{ marginLeft: 20, ...styles.fonts }}>
-						// 										{item?.title}
-						// 									</Text>
-						// 								</View>
-						//
-						// 								{/* Item Price  */}
-						// 								<View>
-						// 									<Text style={{ ...styles.fontsBold, fontSize: 15 }}>
-						// 										€ {item?.price}
-						// 									</Text>
-						// 								</View>
-						// 							</View>
-						//
-						// 							{/* bottom button and quantity control  */}
-						// 							<View style={{ ...styles.basketItemQuantityControl }}>
-						// 								<TouchableOpacity
-						// 									style={{ ...styles.basketItemQuantityControlButton }}
-						// 									onPress={() => handleSubtract(item?.product_id)}>
-						// 									<Text
-						// 										style={{
-						// 											...styles.basketItemQuantityControlButtonText,
-						// 										}}>
-						// 										-
-						// 									</Text>
-						// 								</TouchableOpacity>
-						//
-						// 								<Text
-						// 									style={{
-						// 										...styles.quantityControlAnimatedText,
-						// 									}}>
-						// 									{item?.quantity}
-						// 								</Text>
-						//
-						// 								<TouchableOpacity
-						// 									onPress={() => handleAdd(item?.product_id)}
-						// 									style={{
-						// 										...styles.basketItemQuantityControlButton,
-						// 									}}>
-						// 									<Text
-						// 										style={{
-						// 											...styles.basketItemQuantityControlButtonText,
-						// 										}}>
-						// 										+
-						// 									</Text>
-						// 								</TouchableOpacity>
-						// 							</View>
-						// 						</View>
 					))}
 				</View>
 
@@ -172,7 +108,7 @@ const Basket = ({ navigation }) => {
 							marginTop: 20,
 						}}>
 						<Text style={{ ...styles.fontsBold, fontSize: 16 }}>
-							Subtotal
+							{language === "en" ? "Subtotal" : "totale parziale"}
 						</Text>
 						<Text style={{ ...styles.fontsBold, fontSize: 16 }}>
 							€ {getBasketTotal(basket).toFixed(2)}
@@ -187,7 +123,9 @@ const Basket = ({ navigation }) => {
 							justifyContent: "space-between",
 							marginTop: 10,
 						}}>
-						<Text style={{ ...styles.fonts }}>Delivery fee</Text>
+						<Text style={{ ...styles.fonts }}>
+							{language === "en" ? "Delivery fee" : "Tassa di consegna"}
+						</Text>
 						<Text style={{ ...styles.fonts }}>
 							€{" "}
 							{postalData?.deliveryPrice ? postalData?.deliveryPrice : 0}
@@ -207,7 +145,9 @@ const Basket = ({ navigation }) => {
 						justifyContent: "space-between",
 						paddingHorizontal: 20,
 					}}>
-					<Text style={{ ...styles.fonts, fontSize: 15 }}>Total</Text>
+					<Text style={{ ...styles.fonts, fontSize: 15 }}>
+						{language === "en" ? "Total" : "Totale"}
+					</Text>
 					<Text style={{ ...styles.fontsBold, fontSize: 15 }}>
 						€{" "}
 						{(
@@ -231,7 +171,9 @@ const Basket = ({ navigation }) => {
 							: navigation.navigate("Account");
 					}}>
 					<Text style={{ ...styles.bottomCheckoutButtonText }}>
-						Review payment and address
+						{language === "en"
+							? "Review payment and address"
+							: "Rivedi il pagamento e l'indirizzo"}
 					</Text>
 				</TouchableOpacity>
 			</View>

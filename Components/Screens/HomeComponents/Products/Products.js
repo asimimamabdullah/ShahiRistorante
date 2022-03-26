@@ -10,6 +10,7 @@ import Header from "../../Header/Header";
 
 const Products = ({ navigation }) => {
 	const state = useStateValue();
+	const [language, setLanguage] = state.language;
 	const [favoriteProducts, setFavoriteProducts] = state.favoriteProducts;
 	const [products] = state.productsAPI.products;
 	const [selectedCategory] = state.selectedCategory;
@@ -58,7 +59,7 @@ const Products = ({ navigation }) => {
 								fontFamily: "Poppins-Regular",
 								marginHorizontal: 20,
 							}}>
-							Products
+							{language === "en" ? "Products" : "Prodotti"}
 						</Text>
 					</View>
 				}

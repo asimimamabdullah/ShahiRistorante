@@ -19,6 +19,7 @@ import { useStateValue } from "../../../hooks/StateProvider";
 
 const Login = ({ navigation }) => {
 	const state = useStateValue();
+	const [language] = state.language;
 	const [isLoggedIn, setIsLoggedIn] = state.userAPI.isLoggedIn;
 	const [token, setToken] = state.token;
 
@@ -87,14 +88,14 @@ const Login = ({ navigation }) => {
 						/>
 					</TouchableOpacity>
 					<Text style={{ fontSize: 30, ...styles.fonts, marginLeft: 50 }}>
-						Login
+						{language === "en" ? "Login" : "Accesso"}
 					</Text>
 				</View>
 
 				{/* Input fields container  */}
 				<View style={styles.inputFieldsContainer}>
 					<TextInput
-						placeholder="Email"
+						placeholder={language === "en" ? "Email" : "E-mail"}
 						defaultValue={email}
 						value={email}
 						onChangeText={(txt) => {
@@ -137,7 +138,7 @@ const Login = ({ navigation }) => {
 								...styles.fonts,
 								lineHeight: 25,
 							}}>
-							Login
+							Accesso
 						</Text>
 
 						<ActivityIndicator
@@ -157,14 +158,16 @@ const Login = ({ navigation }) => {
 				{/* create account offer line  */}
 				<View>
 					<Text style={{ ...styles.fonts, textAlign: "center" }}>
-						Not already a member{" "}
+						{language === "en"
+							? "Not already a member"
+							: "Non sei già un membro"}{" "}
 						<Text
 							style={{
 								textDecorationLine: "underline",
 								color: "blue",
 							}}
 							onPress={() => navigation.navigate("Register")}>
-							click here
+							{language === "en" ? "click here" : "clicca qui"}
 						</Text>
 					</Text>
 				</View>

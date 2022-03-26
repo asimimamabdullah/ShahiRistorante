@@ -14,6 +14,7 @@ import OrderItem from "./OrdersItem/OrderItem";
 
 const Orders = ({ navigation }) => {
 	const state = useStateValue();
+	const [language] = state.language;
 	const { userAPI } = useStateValue();
 	const [updateOrders] = state.updateOrders;
 	const [orders, setOrders] = userAPI.orders;
@@ -55,7 +56,7 @@ const Orders = ({ navigation }) => {
 	return (
 		<View style={{ marginVertical: 20 }}>
 			<Text style={{ ...styles.fonts, fontSize: 20, marginHorizontal: 20 }}>
-				Past Orders
+				{language === "en" ? "Past Orders" : "Ordini Passati"}
 			</Text>
 
 			{orders.length > 0 ? (
@@ -68,7 +69,9 @@ const Orders = ({ navigation }) => {
 				/>
 			) : (
 				<Text style={{ marginHorizontal: 20, fontSize: 17 }}>
-					You don't have any orders yet
+					{language === "en"
+						? "You don't have any orders yet"
+						: "Non hai ancora nessun ordine"}
 				</Text>
 			)}
 

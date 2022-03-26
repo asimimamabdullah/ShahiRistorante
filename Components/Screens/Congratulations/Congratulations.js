@@ -3,8 +3,11 @@ import React from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "../../../constants";
+import { useStateValue } from "../../../hooks/StateProvider";
 
 const Congratulations = ({ navigation, route }) => {
+	const state = useStateValue();
+	const [language] = state.language;
 	const { orderNumber } = route.params;
 	return (
 		<>
@@ -48,7 +51,7 @@ const Congratulations = ({ navigation, route }) => {
 							textAlign: "center",
 							marginVertical: 10,
 						}}>
-						Congratulations!
+						{language === "en" ? "Congratulations" : "Congratulazioni"}!
 					</Text>
 
 					<Text
@@ -57,14 +60,14 @@ const Congratulations = ({ navigation, route }) => {
 							textAlign: "center",
 							fontSize: 15,
 						}}>
-						You have successfully placed an order
+						{language === "en"
+							? "You have successfully placed an order"
+							: "Hai effettuato correttamente un ordine"}
 					</Text>
 
 					<TouchableOpacity
 						onPress={() =>
-							navigation.navigate("OrderSummary", {
-								orderNumber,
-							})
+							navigation.navigate("OrderSummary", { orderNumber })
 						}
 						style={{
 							backgroundColor: "#ff4593",
@@ -81,7 +84,9 @@ const Congratulations = ({ navigation, route }) => {
 								...styles.fontsBold,
 								fontSize: 15,
 							}}>
-							Delivery Status
+							{language === "en"
+								? "Delivery Status"
+								: "Stato della consegna"}
 						</Text>
 						<View
 							style={{

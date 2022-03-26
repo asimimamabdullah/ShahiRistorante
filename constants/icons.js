@@ -20,6 +20,7 @@ const cash = require("../assets/icons/cash.png");
 const summary = require("../assets/icons/summary.png");
 const congratulation = require("../assets/icons/congratulation.png");
 const home = require("../assets/icons/home.png");
+const language = require("../assets/icons/translation.png");
 
 export default {
 	// bars,
@@ -62,4 +63,5 @@ export default {
 	summary,
 	congratulation,
 	home,
+	language,
 };

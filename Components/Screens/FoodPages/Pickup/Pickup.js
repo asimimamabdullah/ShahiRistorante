@@ -6,12 +6,13 @@ import {
 	TouchableOpacity,
 	Image,
 } from "react-native";
-import React, { useEffect, memo, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useStateValue } from "../../../../hooks/StateProvider";
 import ProductsItem from "../../HomeComponents/Products/ProductsItem";
 
 const Pickup = ({ navigation }) => {
 	const state = useStateValue();
+	const [language] = state.language;
 	const [categories] = state.categoriesAPI.categories;
 	const [selectedCategory, setSelectedCategory] = state.selectedCategory;
 	const [products] = state.productsAPI.products;
@@ -44,7 +45,9 @@ const Pickup = ({ navigation }) => {
 					marginHorizontal: 20,
 					marginBottom: 30,
 				}}>
-				Select your food and place order
+				{language === "en"
+					? "Select your food and place order"
+					: "Seleziona il tuo cibo ed effettua un ordine"}
 			</Text>
 
 			<Text
@@ -56,7 +59,9 @@ const Pickup = ({ navigation }) => {
 					marginBottom: 20,
 					color: "#aaa",
 				}}>
-				And get it within 30 to 40 minutes
+				{language === "en"
+					? "And get it within 30 to 40 minutes"
+					: "E ottenerlo entro 30-40 minuti"}
 			</Text>
 
 			<View>

@@ -15,10 +15,11 @@ import { icons } from "../../../../constants";
 import { useStateValue } from "../../../../hooks/StateProvider";
 
 const RegisterPassword = ({ navigation }) => {
-	const { userAPI } = useStateValue();
+	const state = useStateValue();
+	const [language] = state.language;
 
-	const [password, setPassword] = userAPI.password;
-	const [confirmPassword, setConfirmPassword] = userAPI.confirmPassword;
+	const [password, setPassword] = state.userAPI.password;
+	const [confirmPassword, setConfirmPassword] = state.userAPI.confirmPassword;
 
 	const handleNext = () => {
 		if (password && confirmPassword) {
@@ -59,7 +60,9 @@ const RegisterPassword = ({ navigation }) => {
 							marginTop: 40,
 							...styles.fonts,
 						}}>
-						Set up password
+						{language === "en"
+							? "Set up password"
+							: "Impostare la password"}
 					</Text>
 
 					<Text
@@ -69,7 +72,9 @@ const RegisterPassword = ({ navigation }) => {
 							fontSize: 16,
 							...styles.fonts,
 						}}>
-						Create Your Password
+						{language === "en"
+							? "Create Your Password"
+							: "Crea la tua password"}
 					</Text>
 
 					<View
@@ -116,7 +121,7 @@ const RegisterPassword = ({ navigation }) => {
 							paddingVertical: 10,
 							paddingHorizontal: 20,
 							backgroundColor: "white",
-							width: "45%",
+							minWidth: "45%",
 							flexDirection: "row",
 							justifyContent: "space-between",
 						}}
@@ -124,16 +129,16 @@ const RegisterPassword = ({ navigation }) => {
 						<Text
 							style={{
 								lineHeight: 30,
-								fontSize: 25,
+								fontSize: 23,
 								color: "black",
 								...styles.fonts,
 							}}>
-							Next
+							{language === "en" ? "Next" : "Seguente"}
 						</Text>
 
 						<Image
 							source={icons.arrowForward}
-							style={{ width: 40, height: 30, tintColor: "#ff4593" }}
+							style={{ width: 35, height: 35, tintColor: "#ff4593" }}
 						/>
 					</TouchableOpacity>
 				</View>

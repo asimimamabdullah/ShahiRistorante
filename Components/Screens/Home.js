@@ -32,6 +32,7 @@ const Home = ({ navigation }) => {
 				setToken(res.data.accessToken);
 			} catch (error) {
 				Alert.alert(error.response.data.error);
+				await AsyncStorage.removeItem("refreshToken");
 				// setIsLoggedIn(false);
 				// setUser(null);
 				// await AsyncStorage.removeItem("isLoggedIn");
@@ -50,7 +51,7 @@ const Home = ({ navigation }) => {
 		if (res === "true") {
 			getRefresToken();
 		}
-	}, [checkUserCallback]);
+	}, []);
 
 	useMemo(async () => {
 		if (postalCode) {
