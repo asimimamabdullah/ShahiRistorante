@@ -138,7 +138,7 @@ const Login = ({ navigation }) => {
 								...styles.fonts,
 								lineHeight: 25,
 							}}>
-							Accesso
+							{language === "en" ? "Login" : "Accesso"}
 						</Text>
 
 						<ActivityIndicator
