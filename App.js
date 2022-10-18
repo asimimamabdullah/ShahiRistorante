@@ -16,7 +16,7 @@ import RegisterAddress from "./Components/Screens/Register/RegisterComponents/Re
 import Basket from "./Components/Screens/Basket/Basket";
 import Orders from "./Components/Screens/Orders/Orders";
 import Favorite from "./Navigation/Favorite";
-import { icons } from "./constants";
+// import { icons } from "./constants";
 import About from "./Components/Screens/About/About";
 import ProfileSettings from "./Components/Screens/Profile/ProfileSettings";
 import FoodDelivery from "./Components/Screens/FoodPages/FoodDelivery/FoodDelivery";
