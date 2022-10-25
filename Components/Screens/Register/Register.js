@@ -100,7 +100,7 @@ const Register = ({ navigation }) => {
 									}
 									defaultValue={firstName}
 									onChangeText={(txt) => {
-										const val = txt.split(" ").join("");
+										const val = txt.trim();
 										setFirstName(val);
 									}}
 									style={{ ...styles.textInput }}
@@ -111,7 +111,7 @@ const Register = ({ navigation }) => {
 									}
 									defaultValue={lastName}
 									onChangeText={(txt) => {
-										const val = txt.split(" ").join("");
+										const val = txt.trim();
 										setLastName(val);
 									}}
 									style={{ ...styles.textInput }}
@@ -120,7 +120,7 @@ const Register = ({ navigation }) => {
 									placeholder="Email"
 									defaultValue={email}
 									onChangeText={(txt) => {
-										const val = txt.split(" ").join("");
+										const val = txt.trim().toLowerCase();
 										setEmail(val);
 									}}
 									style={{ ...styles.textInput }}

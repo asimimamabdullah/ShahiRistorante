@@ -99,7 +99,7 @@ const Login = ({ navigation }) => {
 						defaultValue={email}
 						value={email}
 						onChangeText={(txt) => {
-							const val = txt.split(" ").join("");
+							const val = txt.trim().toLowerCase();
 							setEmail(val);
 						}}
 						style={{ ...styles.textInput }}
