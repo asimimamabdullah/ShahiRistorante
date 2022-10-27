@@ -7,9 +7,9 @@ import {
 	ScrollView,
 	TextInput,
 	Alert,
+	SafeAreaView,
 } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { icons } from "../../../../constants";
 import { useStateValue } from "../../../../hooks/StateProvider";
@@ -34,17 +34,13 @@ const RegisterPassword = ({ navigation }) => {
 	};
 	return (
 		<View style={{ backgroundColor: "#fa5a9d" }}>
-			<SafeAreaView
-				style={{ height: "100%", justifyContent: "space-between" }}>
+			<SafeAreaView style={{ height: "100%", justifyContent: "space-between" }}>
 				{/* Styled container  */}
 				<View style={[styles.styleContainer, { height: "70%" }]}>
 					{/* header div  */}
 					<View style={styles.headerDiv}>
 						<TouchableOpacity onPress={() => navigation.goBack()}>
-							<Image
-								source={icons.arrowBack}
-								style={{ width: 35, height: 35 }}
-							/>
+							<Image source={icons.arrowBack} style={{ width: 35, height: 35 }} />
 						</TouchableOpacity>
 						<Text
 							style={{
@@ -60,9 +56,7 @@ const RegisterPassword = ({ navigation }) => {
 							marginTop: 40,
 							...styles.fonts,
 						}}>
-						{language === "en"
-							? "Set up password"
-							: "Impostare la password"}
+						{language === "en" ? "Set up password" : "Impostare la password"}
 					</Text>
 
 					<Text
@@ -72,9 +66,7 @@ const RegisterPassword = ({ navigation }) => {
 							fontSize: 16,
 							...styles.fonts,
 						}}>
-						{language === "en"
-							? "Create Your Password"
-							: "Crea la tua password"}
+						{language === "en" ? "Create Your Password" : "Crea la tua password"}
 					</Text>
 
 					<View
@@ -136,10 +128,7 @@ const RegisterPassword = ({ navigation }) => {
 							{language === "en" ? "Next" : "Seguente"}
 						</Text>
 
-						<Image
-							source={icons.arrowForward}
-							style={{ width: 35, height: 35, tintColor: "#ff4593" }}
-						/>
+						<Image source={icons.arrowForward} style={{ width: 35, height: 35, tintColor: "#ff4593" }} />
 					</TouchableOpacity>
 				</View>
 			</SafeAreaView>

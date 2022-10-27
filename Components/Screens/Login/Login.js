@@ -7,9 +7,9 @@ import {
 	TouchableOpacity,
 	Alert,
 	ActivityIndicator,
+	SafeAreaView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
@@ -82,10 +82,7 @@ const Login = ({ navigation }) => {
 						alignItems: "center",
 					}}>
 					<TouchableOpacity onPress={() => navigation.goBack()}>
-						<Image
-							source={icons?.arrowBack}
-							style={{ width: 35, height: 35 }}
-						/>
+						<Image source={icons?.arrowBack} style={{ width: 35, height: 35 }} />
 					</TouchableOpacity>
 					<Text style={{ fontSize: 30, ...styles.fonts, marginLeft: 50 }}>
 						{language === "en" ? "Login" : "Accesso"}
@@ -158,9 +155,7 @@ const Login = ({ navigation }) => {
 				{/* create account offer line  */}
 				<View>
 					<Text style={{ ...styles.fonts, textAlign: "center" }}>
-						{language === "en"
-							? "Not already a member"
-							: "Non sei già un membro"}{" "}
+						{language === "en" ? "Not already a member" : "Non sei già un membro"}{" "}
 						<Text
 							style={{
 								textDecorationLine: "underline",

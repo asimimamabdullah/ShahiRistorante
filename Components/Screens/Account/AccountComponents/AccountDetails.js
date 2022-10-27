@@ -1,15 +1,6 @@
-import {
-	StyleSheet,
-	Text,
-	View,
-	ScrollView,
-	TouchableOpacity,
-	Image,
-	Alert,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Alert, SafeAreaView } from "react-native";
 import React from "react";
 import axios from "axios";
-import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 
@@ -55,10 +46,7 @@ const AccountDetails = ({ navigation }) => {
 				<ScrollView>
 					{/* Header Section Profile  */}
 					<View style={{ ...styles.profileContainer }}>
-						<Image
-							source={images.avatar_5}
-							style={{ ...styles.profileImage }}
-						/>
+						<Image source={images.avatar_5} style={{ ...styles.profileImage }} />
 
 						<Text
 							style={{
@@ -84,18 +72,14 @@ const AccountDetails = ({ navigation }) => {
 									lineHeight: 20,
 									...styles.fonts,
 								}}>
-								{language === "en"
-									? "Edit Profile"
-									: "Modifica Profilo"}
+								{language === "en" ? "Edit Profile" : "Modifica Profilo"}
 							</Text>
 						</TouchableOpacity>
 					</View>
 
 					{/* Settings Section  */}
 					<View style={styles.settingsMainSection}>
-						<Text style={styles.settingsSectionTitle}>
-							{language === "en" ? "Content" : "Contenuto"}
-						</Text>
+						<Text style={styles.settingsSectionTitle}>{language === "en" ? "Content" : "Contenuto"}</Text>
 						{/* Settings Section's Container  */}
 						<View style={{ ...styles.settingsSectionContainer }}>
 							{/* Setting div  */}
@@ -103,19 +87,11 @@ const AccountDetails = ({ navigation }) => {
 								style={{ ...styles.settingsSectionDiv }}
 								onPress={() => navigation.navigate("Favorite1")}>
 								<View style={{ ...styles.settingsDivC1 }}>
-									<Image
-										source={icons.favorite}
-										style={styles.settingsDivImg}
-									/>
+									<Image source={icons.favorite} style={styles.settingsDivImg} />
 
-									<Text style={styles.settingsDivText}>
-										{language === "en" ? "Favourites" : "Preferite"}
-									</Text>
+									<Text style={styles.settingsDivText}>{language === "en" ? "Favourites" : "Preferite"}</Text>
 								</View>
-								<Image
-									source={icons.openRight}
-									style={styles.settingsDivC2Img}
-								/>
+								<Image source={icons.openRight} style={styles.settingsDivC2Img} />
 							</TouchableOpacity>
 
 							{/* Setting div 2 */}
@@ -123,19 +99,11 @@ const AccountDetails = ({ navigation }) => {
 								style={{ ...styles.settingsSectionDiv }}
 								onPress={() => navigation.navigate("Orders1")}>
 								<View style={{ ...styles.settingsDivC1 }}>
-									<Image
-										source={icons.orders}
-										style={styles.settingsDivImg}
-									/>
+									<Image source={icons.orders} style={styles.settingsDivImg} />
 
-									<Text style={styles.settingsDivText}>
-										{language === "en" ? "Orders" : "Ordini"}
-									</Text>
+									<Text style={styles.settingsDivText}>{language === "en" ? "Orders" : "Ordini"}</Text>
 								</View>
-								<Image
-									source={icons.openRight}
-									style={styles.settingsDivC2Img}
-								/>
+								<Image source={icons.openRight} style={styles.settingsDivC2Img} />
 							</TouchableOpacity>
 
 							{/* Setting div 3 */}
@@ -164,14 +132,9 @@ const AccountDetails = ({ navigation }) => {
 									else if (language === "it") setLanguage("en");
 								}}>
 								<View style={{ ...styles.settingsDivC1 }}>
-									<Image
-										source={icons.language}
-										style={styles.settingsDivImg}
-									/>
+									<Image source={icons.language} style={styles.settingsDivImg} />
 
-									<Text style={styles.settingsDivText}>
-										{language === "en" ? "Language" : "Linguaggio"}
-									</Text>
+									<Text style={styles.settingsDivText}>{language === "en" ? "Language" : "Linguaggio"}</Text>
 									<Text
 										style={{
 											...styles.settingsDivText,
@@ -191,9 +154,7 @@ const AccountDetails = ({ navigation }) => {
 					{/* Logout Section */}
 
 					<View style={styles.settingsMainSection}>
-						<Text style={styles.settingsSectionTitle}>
-							{language === "en" ? "Logout" : "Disconnettersi"}
-						</Text>
+						<Text style={styles.settingsSectionTitle}>{language === "en" ? "Logout" : "Disconnettersi"}</Text>
 						<View style={styles.settingsSectionContainer}>
 							{/* Logout div  */}
 							<TouchableOpacity
@@ -203,14 +164,9 @@ const AccountDetails = ({ navigation }) => {
 									paddingVertical: 15,
 								}}>
 								<View style={{ ...styles.settingsDivC1 }}>
-									<Image
-										source={icons.logout}
-										style={styles.settingsDivImg}
-									/>
+									<Image source={icons.logout} style={styles.settingsDivImg} />
 
-									<Text style={styles.settingsDivText}>
-										{language === "en" ? "Logout" : "Disconnettersi"}
-									</Text>
+									<Text style={styles.settingsDivText}>{language === "en" ? "Logout" : "Disconnettersi"}</Text>
 								</View>
 							</TouchableOpacity>
 						</View>

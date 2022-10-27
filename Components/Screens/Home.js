@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 
-import { ActivityIndicator, View, Alert } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ActivityIndicator, View, Alert, SafeAreaView } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import NetInfo from "@react-native-community/netinfo";
@@ -56,11 +55,9 @@ const Home = ({ navigation }) => {
 	useMemo(async () => {
 		if (postalCode) {
 			try {
-				await axios
-					.get(`${axiosURL}/dashboard/onepostalcode/${postalCode}`)
-					.then((response) => {
-						setPostalData(response.data.code);
-					});
+				await axios.get(`${axiosURL}/dashboard/onepostalcode/${postalCode}`).then((response) => {
+					setPostalData(response.data.code);
+				});
 			} catch (error) {
 				setPostalData(null);
 				setPostalCode(null);

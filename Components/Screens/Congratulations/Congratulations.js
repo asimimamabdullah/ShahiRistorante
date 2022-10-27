@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView } from "react-native";
 import React from "react";
 
-import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "../../../constants";
 import { useStateValue } from "../../../hooks/StateProvider";
 
@@ -20,10 +19,7 @@ const Congratulations = ({ navigation, route }) => {
 						paddingHorizontal: 20,
 					}}>
 					<TouchableOpacity onPress={() => navigation.navigate("Home")}>
-						<Image
-							source={icons.home}
-							style={{ height: 30, width: 30, tintColor: "#ff4593" }}
-						/>
+						<Image source={icons.home} style={{ height: 30, width: 30, tintColor: "#ff4593" }} />
 					</TouchableOpacity>
 				</View>
 				<View
@@ -66,9 +62,7 @@ const Congratulations = ({ navigation, route }) => {
 					</Text>
 
 					<TouchableOpacity
-						onPress={() =>
-							navigation.navigate("OrderSummary", { orderNumber })
-						}
+						onPress={() => navigation.navigate("OrderSummary", { orderNumber })}
 						style={{
 							backgroundColor: "#ff4593",
 							justifyContent: "center",
@@ -84,9 +78,7 @@ const Congratulations = ({ navigation, route }) => {
 								...styles.fontsBold,
 								fontSize: 15,
 							}}>
-							{language === "en"
-								? "Delivery Status"
-								: "Stato della consegna"}
+							{language === "en" ? "Delivery Status" : "Stato della consegna"}
 						</Text>
 						<View
 							style={{
@@ -95,10 +87,7 @@ const Congratulations = ({ navigation, route }) => {
 								marginLeft: 30,
 								borderRadius: 5,
 							}}>
-							<Image
-								source={icons.openRight}
-								style={{ width: 20, height: 20, tintColor: "#ff4593" }}
-							/>
+							<Image source={icons.openRight} style={{ width: 20, height: 20, tintColor: "#ff4593" }} />
 						</View>
 					</TouchableOpacity>
 				</View>

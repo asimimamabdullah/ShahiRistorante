@@ -7,9 +7,9 @@ import {
 	TouchableHighlight,
 	Animated,
 	Easing,
+	SafeAreaView,
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "../../../constants";
 import { useStateValue } from "../../../hooks/StateProvider";
 
@@ -22,42 +22,41 @@ const Product = ({ route, navigation }) => {
 
 	const anim = new Animated.Value(0);
 
-	const handleQuantity = useCallback(() => {
-		const index = basket.findIndex((i) => i.product_id === item.product_id);
+	// 	const handleQuantity = useCallback(() => {
+	// 		const index = basket.findIndex((i) => i.product_id === item.product_id);
+	//
+	// 		if (index === -1) setQuantity(0);
+	// 		if (index !== -1) setQuantity(basket[index].quantity);
+	// 	}, [basket]);
+	//
+	// 	useEffect(() => {
+	// 		handleQuantity();
+	// 	}, []);
 
-		if (index === -1) setQuantity(0);
-		if (index !== -1) setQuantity(basket[index].quantity);
-	}, [basket]);
-
-	useEffect(() => {
-		handleQuantity();
-	}, []);
-
-	const startAnimation = useCallback(() => {
-		anim.setValue(0);
-		Animated.timing(anim, {
-			toValue: 1,
-			duration: 200,
-			useNativeDriver: true,
-			easing: Easing.bounce,
-			// tension: 200,
-			// overshootClamping: false,
-			// stiffness: 200,
-			// speed: 30,
-			// stiffness: 200,
-			// damping: 4,
-			// bounciness: 50,
-			// mass: 1.1,
-		}).start();
-	}, [quantity]);
-
-	useEffect(() => {
-		startAnimation();
-	}, [quantity]);
+	// 	const startAnimation = useCallback(() => {
+	// 		anim.setValue(0);
+	// 		Animated.timing(anim, {
+	// 			toValue: 1,
+	// 			duration: 50,
+	// 			useNativeDriver: true,
+	// 			easing: Easing.bounce,
+	// 			// tension: 200,
+	// 			// overshootClamping: false,
+	// 			// stiffness: 200,
+	// 			// speed: 30,
+	// 			// stiffness: 200,
+	// 			// damping: 4,
+	// 			// bounciness: 50,
+	// 			// mass: 1.1,
+	// 		}).start();
+	// 	}, [quantity]);
+	//
+	// 	useEffect(() => {
+	// 		startAnimation();
+	// 	}, [quantity]);
 
 	const addNum = (id) => {
 		const index = basket.findIndex((i) => i.product_id === id);
-
 		if (index === -1) {
 			setBasket([...basket, { ...item, quantity: 1 }]);
 			setQuantity(1);
@@ -70,6 +69,7 @@ const Product = ({ route, navigation }) => {
 				...newArray[index],
 				quantity: newArray[index].quantity + 1,
 			};
+			// setBasket(prevVal => ([...prevVal,]))
 			setBasket(newArray);
 		}
 	};
@@ -102,7 +102,7 @@ const Product = ({ route, navigation }) => {
 	});
 
 	return (
-		<SafeAreaView style={{ height: "100%" }}>
+		<SafeAreaView style={{ flex: 1 }}>
 			<Image
 				source={{ uri: item?.images?.url }}
 				style={{
@@ -130,10 +130,7 @@ const Product = ({ route, navigation }) => {
 					justifyContent: "center",
 				}}
 				onPress={() => navigation.goBack()}>
-				<Image
-					source={icons?.arrowBack}
-					style={{ height: 30, width: 35 }}
-				/>
+				<Image source={icons?.arrowBack} style={{ height: 30, width: 35 }} />
 			</TouchableOpacity>
 
 			<TouchableOpacity
@@ -149,10 +146,7 @@ const Product = ({ route, navigation }) => {
 					justifyContent: "center",
 				}}
 				onPress={() => navigation.navigate("Basket")}>
-				<Image
-					source={icons?.basket}
-					style={{ height: 30, width: 30, tintColor: "#ff4593" }}
-				/>
+				<Image source={icons?.basket} style={{ height: 30, width: 30, tintColor: "#ff4593" }} />
 
 				<Animated.Text
 					style={{
@@ -166,7 +160,7 @@ const Product = ({ route, navigation }) => {
 						height: 22,
 						textAlign: "center",
 						textAlignVertical: "center",
-						transform: [{ scale: scale }],
+						// transform: [{ scale: scale }],
 					}}>
 					{quantity}
 				</Animated.Text>
@@ -190,9 +184,7 @@ const Product = ({ route, navigation }) => {
 					{item?.title}
 				</Text>
 
-				<Text style={{ ...styles.fonts, letterSpacing: 0.5 }}>
-					from € {item?.price}
-				</Text>
+				<Text style={{ ...styles.fonts, letterSpacing: 0.5 }}>from € {item?.price}</Text>
 			</View>
 
 			<Text
@@ -232,9 +224,7 @@ const Product = ({ route, navigation }) => {
 						justifyContent: "center",
 					}}
 					onPress={() => subtractNum(item?.product_id)}>
-					<Text style={{ color: "white", fontSize: 40, lineHeight: 40 }}>
-						-
-					</Text>
+					<Text style={{ color: "white", fontSize: 40, lineHeight: 40 }}>-</Text>
 				</TouchableOpacity>
 
 				<Animated.Text
@@ -246,7 +236,7 @@ const Product = ({ route, navigation }) => {
 						textAlignVertical: "center",
 						fontSize: 25,
 						color: "#424141",
-						transform: [{ scale: scale }],
+						// transform: [{ scale: scale }],
 					}}>
 					{quantity}
 				</Animated.Text>

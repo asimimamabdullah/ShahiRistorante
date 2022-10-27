@@ -7,9 +7,9 @@ import {
 	ScrollView,
 	TextInput,
 	Alert,
+	SafeAreaView,
 } from "react-native";
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
@@ -48,9 +48,7 @@ const RegisterAddress = ({ navigation }) => {
 						});
 					});
 			} catch (error) {
-				Alert.alert(
-					error.response.data.error + ". Please Enter another postal code",
-				);
+				Alert.alert(error.response.data.error + ". Please Enter another postal code");
 				setPostalResult(null);
 				setPostalCode(null);
 			}
@@ -98,17 +96,13 @@ const RegisterAddress = ({ navigation }) => {
 
 	return (
 		<View style={{ backgroundColor: "#fa5a9d" }}>
-			<SafeAreaView
-				style={{ height: "100%", justifyContent: "space-between" }}>
+			<SafeAreaView style={{ height: "100%", justifyContent: "space-between" }}>
 				{/* Styled container  */}
 				<View style={{ ...styles.styleContainer, height: "70%" }}>
 					{/* header div  */}
 					<View style={{ ...styles.headerDiv }}>
 						<TouchableOpacity onPress={() => navigation.goBack()}>
-							<Image
-								source={icons.arrowBack}
-								style={{ width: 35, height: 35 }}
-							/>
+							<Image source={icons.arrowBack} style={{ width: 35, height: 35 }} />
 						</TouchableOpacity>
 						<Text style={{ ...styles.headerText }}>Sign up</Text>
 					</View>
@@ -119,9 +113,7 @@ const RegisterAddress = ({ navigation }) => {
 							marginTop: 40,
 							...styles.fonts,
 						}}>
-						{language === "en"
-							? "Address Info"
-							: "informazioni sull'indirizzo"}
+						{language === "en" ? "Address Info" : "informazioni sull'indirizzo"}
 					</Text>
 
 					<Text
@@ -152,10 +144,7 @@ const RegisterAddress = ({ navigation }) => {
 									fontSize: 11,
 									marginLeft: 10,
 								}}>
-								{language === "en"
-									? "Check Postal Code"
-									: "Controlla il codice postale"}
-								: *
+								{language === "en" ? "Check Postal Code" : "Controlla il codice postale"}: *
 							</Text>
 							<TextInput
 								placeholder="Postal Code (required), e.g. 52250"
@@ -170,10 +159,7 @@ const RegisterAddress = ({ navigation }) => {
 									fontSize: 11,
 									marginLeft: 10,
 								}}>
-								{language === "en"
-									? "Enter Address"
-									: "Inserisci indirizzo"}{" "}
-								*
+								{language === "en" ? "Enter Address" : "Inserisci indirizzo"} *
 							</Text>
 							<TextInput
 								placeholder="Enter Address"
@@ -188,10 +174,7 @@ const RegisterAddress = ({ navigation }) => {
 									fontSize: 11,
 									marginLeft: 10,
 								}}>
-								{language === "en"
-									? "Enter Building Address"
-									: "Immettere l'indirizzo dell'edificio"}{" "}
-								*
+								{language === "en" ? "Enter Building Address" : "Immettere l'indirizzo dell'edificio"} *
 							</Text>
 							<TextInput
 								placeholder="Adress Line 1"
@@ -206,10 +189,7 @@ const RegisterAddress = ({ navigation }) => {
 									fontSize: 11,
 									marginLeft: 10,
 								}}>
-								{language === "en"
-									? "Enter Phone No."
-									: "Inserisci il numero di telefono"}
-								*
+								{language === "en" ? "Enter Phone No." : "Inserisci il numero di telefono"}*
 							</Text>
 							<TextInput
 								placeholder="Phone No."
@@ -250,10 +230,7 @@ const RegisterAddress = ({ navigation }) => {
 							{language === "en" ? "Sign up" : "Iscrizione"}
 						</Text>
 
-						<Image
-							source={icons.arrowForward}
-							style={{ width: 40, height: 30, tintColor: "#ff4593" }}
-						/>
+						<Image source={icons.arrowForward} style={{ width: 40, height: 30, tintColor: "#ff4593" }} />
 					</TouchableOpacity>
 				</View>
 			</SafeAreaView>

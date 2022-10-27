@@ -7,9 +7,9 @@ import {
 	TextInput,
 	ScrollView,
 	Alert,
+	SafeAreaView,
 } from "react-native";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "../../../constants";
 import { useStateValue } from "../../../hooks/StateProvider";
 
@@ -43,10 +43,7 @@ const Register = ({ navigation }) => {
 					<View style={[styles.styleContainer, { height: "70%" }]}>
 						<View style={styles.headerDiv}>
 							<TouchableOpacity onPress={() => navigation.goBack()}>
-								<Image
-									source={icons.arrowBack}
-									style={{ width: 35, height: 35 }}
-								/>
+								<Image source={icons.arrowBack} style={{ width: 35, height: 35 }} />
 							</TouchableOpacity>
 							<Text
 								style={{
@@ -62,9 +59,7 @@ const Register = ({ navigation }) => {
 								marginTop: 40,
 								...styles.fonts,
 							}}>
-							{language === "en"
-								? "Register Form"
-								: "Modulo di registrazione"}
+							{language === "en" ? "Register Form" : "Modulo di registrazione"}
 						</Text>
 
 						<Text
@@ -74,9 +69,7 @@ const Register = ({ navigation }) => {
 								fontSize: 16,
 								...styles.fonts,
 							}}>
-							{language === "en"
-								? "Fill up the form below"
-								: "Compila il modulo sottostante"}
+							{language === "en" ? "Fill up the form below" : "Compila il modulo sottostante"}
 						</Text>
 
 						<View
@@ -93,11 +86,7 @@ const Register = ({ navigation }) => {
 									justifyContent: "center",
 								}}>
 								<TextInput
-									placeholder={
-										language === "en"
-											? "First Name"
-											: "Nome di battesimo"
-									}
+									placeholder={language === "en" ? "First Name" : "Nome di battesimo"}
 									defaultValue={firstName}
 									onChangeText={(txt) => {
 										const val = txt.trim();
@@ -106,9 +95,7 @@ const Register = ({ navigation }) => {
 									style={{ ...styles.textInput }}
 								/>
 								<TextInput
-									placeholder={
-										language === "en" ? "Last Name" : "Cognome"
-									}
+									placeholder={language === "en" ? "Last Name" : "Cognome"}
 									defaultValue={lastName}
 									onChangeText={(txt) => {
 										const val = txt.trim();
@@ -155,10 +142,7 @@ const Register = ({ navigation }) => {
 								{language === "en" ? "Next" : "Seguente"}
 							</Text>
 
-							<Image
-								source={icons.arrowForward}
-								style={{ width: 40, height: 30, tintColor: "#ff4593" }}
-							/>
+							<Image source={icons.arrowForward} style={{ width: 40, height: 30, tintColor: "#ff4593" }} />
 						</TouchableOpacity>
 					</View>
 				</ScrollView>

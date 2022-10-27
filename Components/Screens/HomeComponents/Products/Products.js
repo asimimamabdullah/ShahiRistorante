@@ -1,4 +1,4 @@
-import { Text, View, FlatList } from "react-native";
+import { Text, View, FlatList, SafeAreaView } from "react-native";
 import React, { useState, useMemo, memo } from "react";
 
 // import { images } from "../../../../constants";
@@ -17,66 +17,65 @@ const Products = ({ navigation }) => {
 	const [productsToRender, setProductsToRender] = useState(products);
 
 	const filterProducts = () => {
-		const filteredArray = products.filter(
-			(item) => item.category === selectedCategory,
-		);
+		const filteredArray = products.filter((item) => item.category === selectedCategory);
 		setProductsToRender(filteredArray);
 	};
 
 	useMemo(() => {
 		if (selectedCategory && selectedCategory !== "All") filterProducts();
-		else if (!selectedCategory || selectedCategory === "All")
-			setProductsToRender(products);
+		else if (!selectedCategory || selectedCategory === "All") setProductsToRender(products);
 	}, [selectedCategory]);
 
 	return (
-		<View>
-			<FlatList
-				data={[]}
-				ListHeaderComponent={<Header navigation={navigation} />}
-				renderItem={<></>}
-				scrollEnabled={false}
-			/>
+		<SafeAreaView>
+			<View>
+				<FlatList
+					data={[]}
+					ListHeaderComponent={<Header navigation={navigation} />}
+					renderItem={<></>}
+					scrollEnabled={false}
+				/>
 
-			<FlatList
-				data={productsToRender}
-				maxToRenderPerBatch={3}
-				initialNumToRender={2}
-				horizontal={false}
-				scrollEnabled={true}
-				key={(i) => i?.product_id}
-				ListHeaderComponent={
-					<View>
-						<SliderPlace navigation={navigation} />
-						<Categories />
+				<FlatList
+					data={productsToRender}
+					maxToRenderPerBatch={3}
+					initialNumToRender={2}
+					horizontal={false}
+					scrollEnabled={true}
+					key={(i) => i?.product_id}
+					ListHeaderComponent={
+						<View>
+							<SliderPlace navigation={navigation} />
+							<Categories />
 
-						<Text
-							style={{
-								fontSize: 30,
-								fontWeight: "600",
-								marginBottom: 20,
-								color: "black",
-								fontFamily: "Poppins-Regular",
-								marginHorizontal: 20,
-							}}>
-							{language === "en" ? "Products" : "Prodotti"}
-						</Text>
-					</View>
-				}
-				keyExtractor={(item) => item?.product_id}
-				showsVerticalScrollIndicator={false}
-				renderItem={(gotItem) =>
-					ProductsItem({
-						favoriteProducts,
-						setFavoriteProducts,
-						navigation,
-						gotItem,
-					})
-				}
-				contentContainerStyle={{ backgroundColor: "transparent" }}
-				ListFooterComponent={<View style={{ height: 250 }} />}
-			/>
-		</View>
+							<Text
+								style={{
+									fontSize: 30,
+									fontWeight: "600",
+									marginBottom: 20,
+									color: "black",
+									fontFamily: "Poppins-Regular",
+									marginHorizontal: 20,
+								}}>
+								{language === "en" ? "Products" : "Prodotti"}
+							</Text>
+						</View>
+					}
+					keyExtractor={(item) => item?.product_id}
+					showsVerticalScrollIndicator={false}
+					renderItem={(gotItem) =>
+						ProductsItem({
+							favoriteProducts,
+							setFavoriteProducts,
+							navigation,
+							gotItem,
+						})
+					}
+					contentContainerStyle={{ backgroundColor: "transparent" }}
+					ListFooterComponent={<View style={{ height: 250 }} />}
+				/>
+			</View>
+		</SafeAreaView>
 	);
 };
 
