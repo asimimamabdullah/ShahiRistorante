@@ -1,7 +1,6 @@
-import { Text, View, FlatList, SafeAreaView } from "react-native";
+import { Text, View, FlatList } from "react-native";
 import React, { useState, useMemo, memo } from "react";
 
-// import { images } from "../../../../constants";
 import ProductsItem from "./ProductsItem";
 import { useStateValue } from "../../../../hooks/StateProvider";
 import SliderPlace from "../DeliverOrTakeaway/SliderPlace";
@@ -27,7 +26,65 @@ const Products = ({ navigation }) => {
 	}, [selectedCategory]);
 
 	return (
-		<SafeAreaView>
+		<>
+			{/* <ScrollView>
+				<Header navigation={navigation} />
+				<View>
+					<SliderPlace />
+					<Categories />
+
+					<Text
+						style={{
+							fontSize: 30,
+							fontWeight: "600",
+							marginBottom: 20,
+							color: "black",
+							fontFamily: "Poppins-Regular",
+							marginHorizontal: 20,
+						}}>
+						{language === "en" ? "Products" : "Prodotti"}
+					</Text>
+				</View>
+
+				<FlatList
+					data={productsToRender}
+					maxToRenderPerBatch={3}
+					initialNumToRender={2}
+					horizontal={false}
+					scrollEnabled={true}
+					key={(i) => i?.product_id}
+					// 					ListHeaderComponent={
+					// 						<View>
+					// 							<SliderPlace navigation={navigation} />
+					// 							<Categories />
+					//
+					// 							<Text
+					// 								style={{
+					// 									fontSize: 30,
+					// 									fontWeight: "600",
+					// 									marginBottom: 20,
+					// 									color: "black",
+					// 									fontFamily: "Poppins-Regular",
+					// 									marginHorizontal: 20,
+					// 								}}>
+					// 								{language === "en" ? "Products" : "Prodotti"}
+					// 							</Text>
+					// 						</View>
+					// 					}
+					keyExtractor={(item) => item?.product_id}
+					showsVerticalScrollIndicator={false}
+					renderItem={(gotItem) =>
+						ProductsItem({
+							favoriteProducts,
+							setFavoriteProducts,
+							navigation,
+							gotItem,
+						})
+					}
+					contentContainerStyle={{ backgroundColor: "transparent" }}
+					ListFooterComponent={<View style={{ height: 250 }} />}
+				/>
+			</ScrollView> */}
 			<View>
 				<FlatList
 					data={[]}
@@ -75,7 +132,7 @@ const Products = ({ navigation }) => {
 					ListFooterComponent={<View style={{ height: 250 }} />}
 				/>
 			</View>
-		</SafeAreaView>
+		</>
 	);
 };
 

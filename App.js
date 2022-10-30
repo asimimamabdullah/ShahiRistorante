@@ -3,6 +3,7 @@ import { StyleSheet, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import { navigationRef } from "./Navigation/RootNavigation";
 import Tabs from "./Navigation/Tabs";
 import Product from "./Components/Screens/Product/Product";
 import Account from "./Components/Screens/Account/Account";
@@ -45,7 +46,7 @@ export default function App() {
 	if (isFinished)
 		return (
 			// <SafeAreaProvider>
-			<NavigationContainer>
+			<NavigationContainer ref={navigationRef}>
 				<StateProvider>
 					<Stack.Navigator
 						initialRouteName="Tabs"

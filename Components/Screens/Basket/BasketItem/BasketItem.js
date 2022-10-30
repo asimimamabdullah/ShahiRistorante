@@ -1,12 +1,4 @@
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	Animated,
-	Easing,
-	TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Image, Animated, Easing, TouchableOpacity, Platform } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
 
 import { useStateValue } from "../../../../hooks/StateProvider";
@@ -113,16 +105,12 @@ const BasketItem = ({ item }) => {
 					) : null}
 
 					{/* Item Name  */}
-					<Text style={{ marginLeft: 20, ...styles.fonts }}>
-						{item?.title}
-					</Text>
+					<Text style={{ marginLeft: 20, ...styles.fonts }}>{item?.title}</Text>
 				</View>
 
 				{/* Item Price  */}
 				<View>
-					<Text style={{ ...styles.fontsBold, fontSize: 15 }}>
-						€ {item?.price}
-					</Text>
+					<Text style={{ ...styles.fontsBold, fontSize: 15 }}>€ {item?.price}</Text>
 				</View>
 			</View>
 

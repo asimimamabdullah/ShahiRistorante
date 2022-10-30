@@ -7,7 +7,7 @@ import {
 	TouchableOpacity,
 	Alert,
 	ActivityIndicator,
-	SafeAreaView,
+	Platform,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -16,6 +16,8 @@ import NetInfo from "@react-native-community/netinfo";
 
 import { icons, axiosURL } from "../../../constants";
 import { useStateValue } from "../../../hooks/StateProvider";
+import IOSSafeAreaView from "../../../SafeArea/iOSSafeArea";
+import AndroidSafeAreaView from "../../../SafeArea/AndroidSafeArea";
 
 const Login = ({ navigation }) => {
 	const state = useStateValue();
@@ -69,24 +71,18 @@ const Login = ({ navigation }) => {
 			setDisabled(false);
 		}
 	};
-
-	return (
-		<View style={{ flex: 1, backgroundColor: "#ffffff" }}>
-			<SafeAreaView style={{ flex: 1 }}>
+	const Content = () => {
+		return (
+			<View style={styles.mainContainer}>
 				{/* Header container  */}
-				<View
-					style={{
-						flexDirection: "row",
-						marginTop: 30,
-						paddingHorizontal: 10,
-						alignItems: "center",
-					}}>
-					<TouchableOpacity onPress={() => navigation.goBack()}>
-						<Image source={icons?.arrowBack} style={{ width: 35, height: 35 }} />
+				<View style={styles.header}>
+					<TouchableOpacity
+						onPress={() => navigation.goBack()}
+						activeOpacity={0.7}
+						hitSlop={{ bottom: 15, top: 15, right: 40, left: 20 }}>
+						<Image source={icons?.arrowBack} style={styles.headerArrowBackImg} />
 					</TouchableOpacity>
-					<Text style={{ fontSize: 30, ...styles.fonts, marginLeft: 50 }}>
-						{language === "en" ? "Login" : "Accesso"}
-					</Text>
+					<Text style={styles.headerLoginText}>{language === "en" ? "Login" : "Accesso"}</Text>
 				</View>
 
 				{/* Input fields container  */}
@@ -112,31 +108,17 @@ const Login = ({ navigation }) => {
 
 				{/* Login button  */}
 
-				<View
-					style={{
-						paddingVertical: 30,
-						paddingHorizontal: 20,
-						alignItems: "flex-end",
-					}}>
+				<View style={styles.loginButtonContainer}>
 					<TouchableOpacity
 						onPress={handleSubmit}
 						disabled={disabled}
+						activeOpacity={0.7}
+						hitSlop={{ bottom: 5, top: 5 }}
 						style={{
 							backgroundColor: disabled ? "#e33b81" : "#ff4593",
-							width: "100%",
-							borderRadius: 50,
-							paddingVertical: 10,
+							...styles.loginButton,
 						}}>
-						<Text
-							style={{
-								fontSize: 20,
-								color: "white",
-								textAlign: "center",
-								...styles.fonts,
-								lineHeight: 25,
-							}}>
-							{language === "en" ? "Login" : "Accesso"}
-						</Text>
+						<Text style={styles.loginButtonText}>{language === "en" ? "Login" : "Accesso"}</Text>
 
 						<ActivityIndicator
 							size={"large"}
@@ -145,7 +127,6 @@ const Login = ({ navigation }) => {
 							style={{
 								position: "absolute",
 								right: 15,
-								// alignSelf: "center",
 								top: 5,
 							}}
 						/>
@@ -156,31 +137,51 @@ const Login = ({ navigation }) => {
 				<View>
 					<Text style={{ ...styles.fonts, textAlign: "center" }}>
 						{language === "en" ? "Not already a member" : "Non sei già un membro"}{" "}
-						<Text
-							style={{
-								textDecorationLine: "underline",
-								color: "blue",
-							}}
-							onPress={() => navigation.navigate("Register")}>
+						<Text style={styles.createOfferLineText} onPress={() => navigation.navigate("Register")}>
 							{language === "en" ? "click here" : "clicca qui"}
 						</Text>
 					</Text>
 				</View>
-			</SafeAreaView>
-		</View>
+			</View>
+		);
+	};
+
+	return Platform.OS === "ios" ? (
+		<IOSSafeAreaView styles={{ flex: 1 }}>{Content()}</IOSSafeAreaView>
+	) : (
+		<AndroidSafeAreaView styles={{ flex: 1 }}>{Content()}</AndroidSafeAreaView>
 	);
 };
 
 export default Login;
 
 const styles = StyleSheet.create({
+	mainContainer: {
+		flex: 1,
+		backgroundColor: "#ffffff",
+	},
+	header: {
+		flexDirection: "row",
+		marginTop: 10,
+		paddingHorizontal: 10,
+		alignItems: "center",
+	},
+
+	headerArrowBackImg: { width: 30, height: 30 },
+	headerLoginText: {
+		fontSize: 20,
+		fontFamily: "Poppins-Regular",
+		marginLeft: 50,
+	},
+
 	inputFieldsContainer: {
 		paddingVertical: 30,
 		height: "50%",
 		justifyContent: "flex-end",
 	},
+
 	textInput: {
-		paddingVertical: 13,
+		paddingVertical: 10,
 		paddingHorizontal: 20,
 		marginHorizontal: 15,
 		fontSize: 17,
@@ -189,6 +190,26 @@ const styles = StyleSheet.create({
 		borderColor: "#bbbbbb50",
 	},
 
+	loginButtonContainer: {
+		paddingVertical: 30,
+		paddingHorizontal: 20,
+		alignItems: "flex-end",
+	},
+
+	loginButton: { width: "100%", borderRadius: 50, paddingVertical: 10 },
+
+	loginButtonText: {
+		fontSize: 20,
+		color: "white",
+		textAlign: "center",
+		fontFamily: "Poppins-Regular",
+		lineHeight: 25,
+	},
+
+	createOfferLineText: {
+		textDecorationLine: "underline",
+		color: "blue",
+	},
 	fonts: {
 		fontFamily: "Poppins-Regular",
 	},

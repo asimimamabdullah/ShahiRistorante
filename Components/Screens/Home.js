@@ -1,8 +1,9 @@
 import React, { useMemo } from "react";
 
-import { ActivityIndicator, View, Alert, SafeAreaView } from "react-native";
+import { ActivityIndicator, View, Alert } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { SafeAreaView } from "react-native-safe-area-context";
 // import NetInfo from "@react-native-community/netinfo";
 
 import { useStateValue } from "../../hooks/StateProvider";
@@ -13,7 +14,6 @@ const Home = ({ navigation }) => {
 	const state = useStateValue();
 	const [token, setToken] = state.token;
 	const [user, setUser] = state.userAPI.user;
-	const [checkUserCallback] = state.userAPI.checkUserCallback;
 	const [postalCode, setPostalCode] = state.userAPI.postalCode;
 	const [isLoggedIn, setIsLoggedIn] = state.userAPI.isLoggedIn;
 	const [postalData, setPostalData] = state.userAPI.postalData;
@@ -87,8 +87,19 @@ const Home = ({ navigation }) => {
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			{/* Products Component With all other home components  */}
-			<Products navigation={navigation} />
+			<>
+				{/* Products Component With all other home components  */}
+				<Products navigation={navigation} />
+
+				{/* <ScrollView>
+					<Header navigation={navigation} />
+					<View>
+						<SliderPlace />
+						<Categories />
+						<Products navigation={navigation} />
+					</View>
+				</ScrollView> */}
+			</>
 		</SafeAreaView>
 	);
 };

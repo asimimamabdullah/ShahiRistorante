@@ -1,11 +1,4 @@
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	TouchableOpacity,
-	ActivityIndicator,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, ActivityIndicator } from "react-native";
 import React from "react";
 
 const CategoriesItem = ({ selectedCategory, setSelectedCategory, gotItem }) => {
@@ -17,16 +10,14 @@ const CategoriesItem = ({ selectedCategory, setSelectedCategory, gotItem }) => {
 		<TouchableOpacity
 			style={{
 				...styles.container,
-				backgroundColor:
-					selectedCategory === item.name ? "#ff4593" : "white",
+				backgroundColor: selectedCategory === item.name ? "#ff4593" : "white",
 				...styles.shadow,
 			}}
 			onPress={() => setSelectedCategory(item.name)}>
 			<View
 				style={{
 					...styles.containerInside,
-					backgroundColor:
-						selectedCategory === item.name ? "white" : "#eee",
+					backgroundColor: selectedCategory === item.name ? "white" : "#eee",
 				}}>
 				{item.images ? (
 					<Image
