@@ -297,7 +297,7 @@ const OrderSummary = ({ navigation, route }) => {
 				<Text style={{ ...styles.fonts, fontSize: 20, lineHeight: 30 }}>
 					€{" "}
 					{orderData?.deliveryOption === "homedelivery"
-						? orderData?.total + orderData?.deliveryCharges
+						? +orderData?.total + +orderData?.deliveryCharges
 						: orderData?.total}
 				</Text>
 			</View>

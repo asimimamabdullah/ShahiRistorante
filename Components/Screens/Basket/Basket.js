@@ -8,6 +8,7 @@ import {
 	Easing,
 	ScrollView,
 	Alert,
+	SafeAreaView,
 } from "react-native";
 import React, { useState, useEffect, useCallback, memo } from "react";
 import { images } from "./../../../constants";
@@ -60,124 +61,107 @@ const Basket = ({ navigation }) => {
 	// 		}
 	// 	};
 	return (
-		<View style={{ flex: 1 }}>
-			{/* Estimated Delivery first div  */}
+		<SafeAreaView style={{ flex: 1 }}>
+			<View style={{ flex: 1 }}>
+				{/* Estimated Delivery first div  */}
 
-			<ScrollView>
-				<View
-					style={{
-						...styles.estimatedDeliveryFirstDiv,
-					}}>
-					<Image
-						source={images?.food_delivery}
-						style={{ width: 80, height: 80 }}
-					/>
+				<ScrollView>
+					<View
+						style={{
+							...styles.estimatedDeliveryFirstDiv,
+						}}>
+						<Image source={images?.food_delivery} style={{ width: 80, height: 80 }} />
 
-					<View style={{ ...styles.firstDivInsideContainer }}>
-						<Text style={{ ...styles.fonts, fontSize: 16 }}>
-							{language === "en"
-								? "Estimated Delivery"
-								: "Consegna stimata"}
-						</Text>
+						<View style={{ ...styles.firstDivInsideContainer }}>
+							<Text style={{ ...styles.fonts, fontSize: 16 }}>
+								{language === "en" ? "Estimated Delivery" : "Consegna stimata"}
+							</Text>
 
-						<Text style={{ ...styles.fonts, fontSize: 17 }}>
-							{language === "en" ? "40 - 50 minutes" : "40 - 50 minuti"}
-						</Text>
+							<Text style={{ ...styles.fonts, fontSize: 17 }}>
+								{language === "en" ? "40 - 50 minutes" : "40 - 50 minuti"}
+							</Text>
+						</View>
 					</View>
-				</View>
 
-				<Text style={{ ...styles.basketMainTitle }}>
-					{language === "en" ? "Basket Items" : "elementi del cestino"}
-				</Text>
+					<Text style={{ ...styles.basketMainTitle }}>
+						{language === "en" ? "Basket Items" : "elementi del cestino"}
+					</Text>
 
-				{/* Basket Items  */}
-				<View style={{ paddingHorizontal: 10 }}>
-					{basket?.map((item, index) => (
-						// Basket Item
-						<BasketItem item={item} key={index} />
-					))}
-				</View>
+					{/* Basket Items  */}
+					<View style={{ paddingHorizontal: 10 }}>
+						{basket?.map((item, index) => (
+							// Basket Item
+							<BasketItem item={item} key={index} />
+						))}
+					</View>
 
-				{/* Subtotal and delivery fee  */}
-				<View style={{ ...styles.basketItemsMainContainer }}>
-					{/* SubTotal Div  */}
+					{/* Subtotal and delivery fee  */}
+					<View style={{ ...styles.basketItemsMainContainer }}>
+						{/* SubTotal Div  */}
+						<View
+							style={{
+								flexDirection: "row",
+								justifyContent: "space-between",
+								marginTop: 20,
+							}}>
+							<Text style={{ ...styles.fontsBold, fontSize: 16 }}>
+								{language === "en" ? "Subtotal" : "totale parziale"}
+							</Text>
+							<Text style={{ ...styles.fontsBold, fontSize: 16 }}>€ {getBasketTotal(basket).toFixed(2)}</Text>
+						</View>
+
+						{/* Delivery Fee Div  */}
+
+						<View
+							style={{
+								flexDirection: "row",
+								justifyContent: "space-between",
+								marginTop: 10,
+							}}>
+							<Text style={{ ...styles.fonts }}>{language === "en" ? "Delivery fee" : "Tassa di consegna"}</Text>
+							<Text style={{ ...styles.fonts }}>
+								€ {postalData?.deliveryPrice ? postalData?.deliveryPrice : 0}
+							</Text>
+						</View>
+					</View>
+
+					<View style={{ height: 110 }} />
+				</ScrollView>
+
+				{/* Bottom Checkout Button  */}
+				<View style={{ ...styles.bottomCheckoutDiv, paddingHorizontal: 10 }}>
+					{/* total container  */}
 					<View
 						style={{
 							flexDirection: "row",
 							justifyContent: "space-between",
-							marginTop: 20,
+							paddingHorizontal: 20,
 						}}>
-						<Text style={{ ...styles.fontsBold, fontSize: 16 }}>
-							{language === "en" ? "Subtotal" : "totale parziale"}
-						</Text>
-						<Text style={{ ...styles.fontsBold, fontSize: 16 }}>
-							€ {getBasketTotal(basket).toFixed(2)}
-						</Text>
-					</View>
-
-					{/* Delivery Fee Div  */}
-
-					<View
-						style={{
-							flexDirection: "row",
-							justifyContent: "space-between",
-							marginTop: 10,
-						}}>
-						<Text style={{ ...styles.fonts }}>
-							{language === "en" ? "Delivery fee" : "Tassa di consegna"}
-						</Text>
-						<Text style={{ ...styles.fonts }}>
+						<Text style={{ ...styles.fonts, fontSize: 15 }}>{language === "en" ? "Total" : "Totale"}</Text>
+						<Text style={{ ...styles.fontsBold, fontSize: 15 }}>
 							€{" "}
-							{postalData?.deliveryPrice ? postalData?.deliveryPrice : 0}
+							{(
+								getBasketTotal(basket) + (postalData?.deliveryPrice ? parseInt(postalData?.deliveryPrice) : 0)
+							).toFixed(2)}
 						</Text>
 					</View>
+					<TouchableOpacity
+						style={{ ...styles.bottomCheckoutButton }}
+						onPress={() => {
+							const r = parseInt(postalData?.minOrder);
+							isLoggedIn
+								? r > getBasketTotal(basket)
+									? Alert.alert(`Order should be minimum of ${postalData?.minOrder}`)
+									: navigation.navigate("Checkout")
+								: navigation.navigate("Account");
+						}}>
+						<Text style={{ ...styles.bottomCheckoutButtonText }}>
+							{language === "en" ? "Review payment and address" : "Rivedi il pagamento e l'indirizzo"}
+						</Text>
+					</TouchableOpacity>
 				</View>
-
-				<View style={{ height: 110 }} />
-			</ScrollView>
-
-			{/* Bottom Checkout Button  */}
-			<View style={{ ...styles.bottomCheckoutDiv }}>
-				{/* total container  */}
-				<View
-					style={{
-						flexDirection: "row",
-						justifyContent: "space-between",
-						paddingHorizontal: 20,
-					}}>
-					<Text style={{ ...styles.fonts, fontSize: 15 }}>
-						{language === "en" ? "Total" : "Totale"}
-					</Text>
-					<Text style={{ ...styles.fontsBold, fontSize: 15 }}>
-						€{" "}
-						{(
-							getBasketTotal(basket) +
-							(postalData?.deliveryPrice
-								? parseInt(postalData?.deliveryPrice)
-								: 0)
-						).toFixed(2)}
-					</Text>
-				</View>
-				<TouchableOpacity
-					style={{ ...styles.bottomCheckoutButton }}
-					onPress={() => {
-						const r = parseInt(postalData?.minOrder);
-						isLoggedIn
-							? r > getBasketTotal(basket)
-								? Alert.alert(
-										`Order should be minimum of ${postalData?.minOrder}`,
-								  )
-								: navigation.navigate("Checkout")
-							: navigation.navigate("Account");
-					}}>
-					<Text style={{ ...styles.bottomCheckoutButtonText }}>
-						{language === "en"
-							? "Review payment and address"
-							: "Rivedi il pagamento e l'indirizzo"}
-					</Text>
-				</TouchableOpacity>
 			</View>
-		</View>
+		</SafeAreaView>
 	);
 };
 

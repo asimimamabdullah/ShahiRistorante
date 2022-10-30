@@ -3,7 +3,6 @@ import React from "react";
 
 const OrderItem = ({ gotItem, navigation }) => {
 	const { item } = gotItem;
-	// console.log("item: ", item.orderNumber);
 
 	if (!item) return;
 
@@ -16,15 +15,10 @@ const OrderItem = ({ gotItem, navigation }) => {
 				})
 			}>
 			<View style={{ ...styles.ordersItemUpperDiv }}>
-				<Image
-					source={{ uri: item.basket[0]?.images?.url }}
-					style={{ ...styles.ordersItemImage }}
-				/>
+				<Image source={{ uri: item.basket[0]?.images?.url }} style={{ ...styles.ordersItemImage }} />
 
 				<View style={{ ...styles.ordersItemUpperDivText }}>
-					<Text style={{ ...styles.fonts, fontSize: 14 }}>
-						{item.basket[0]?.title}
-					</Text>
+					<Text style={{ ...styles.fonts, fontSize: 14 }}>{item.basket[0]?.title}</Text>
 					<Text style={{ ...styles.fontsBold, fontSize: 15 }}>x8</Text>
 				</View>
 			</View>
@@ -36,21 +30,14 @@ const OrderItem = ({ gotItem, navigation }) => {
 					marginTop: 10,
 					justifyContent: "flex-end",
 				}}>
-				<Text style={{ ...styles.fonts, fontSize: 17, marginLeft: 20 }}>
-					Total:
-				</Text>
+				<Text style={{ ...styles.fonts, fontSize: 17, marginLeft: 20 }}>Total:</Text>
 				<Text style={{ marginLeft: 30, ...styles.fontsBold, fontSize: 17 }}>
-					€{" "}
-					{item.deliveryOption === "takeaway"
-						? item.total
-						: item.total + item.deliveryCharges}
+					€ {item.deliveryOption === "takeaway" ? item.total : item.total + item.deliveryCharges}
 				</Text>
 			</View>
 			{/* Order's Item bottom div  */}
 			<View style={{ ...styles.ordersItemBottomDiv }}>
-				<Text style={{ color: "#aaaaaa" }}>
-					{new Date(item.time).toDateString()}
-				</Text>
+				<Text style={{ color: "#aaaaaa" }}>{new Date(item.time).toDateString()}</Text>
 
 				<TouchableOpacity
 					style={{ ...styles.ordersItemBottomDivButton }}

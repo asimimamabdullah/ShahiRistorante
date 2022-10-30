@@ -2,8 +2,9 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { images } from "../../../../constants";
 import { useStateValue } from "../../../../hooks/StateProvider";
+import * as RootNavigation from "../../../../Navigation/RootNavigation";
 
-const SliderPlace = ({ navigation }) => {
+const SliderPlace = () => {
 	const state = useStateValue();
 	const [language] = state.language;
 	const [user] = state.userAPI.user;
@@ -15,25 +16,18 @@ const SliderPlace = ({ navigation }) => {
 				<View>
 					<Text style={{ ...styles.fonts, fontSize: 20, lineHeight: 25 }}>
 						{language === "en" ? "Welcome" : "Benvenuta"}{" "}
-						{user?.firstName
-							? user?.firstName
-							: language === "en"
-							? "here"
-							: "qui"}
+						{user?.firstName ? user?.firstName : language === "en" ? "here" : "qui"}
 					</Text>
 					<Text style={{ ...styles.fonts, fontSize: 14, lineHeight: 18 }}>
 						{language === "en" ? "Looking for food" : "Cercando cibo"}?{" "}
 					</Text>
 				</View>
 
-				<Image
-					source={images?.food_2}
-					style={{ width: 100, height: 100 }}
-				/>
+				<Image source={images?.food_2} style={{ width: 100, height: 100 }} />
 			</View>
 			{/* Food Delivery Div  */}
 			<TouchableOpacity
-				onPress={() => navigation.navigate("FoodDelivery")}
+				onPress={() => RootNavigation.navigate("FoodDelivery")}
 				style={{
 					...styles.foodDeliveryDivContainer,
 					backgroundColor: "#ff4593",
@@ -58,20 +52,15 @@ const SliderPlace = ({ navigation }) => {
 							fontSize: 12,
 							lineHeight: 20,
 						}}>
-						{language === "en"
-							? "Order your favourite food"
-							: "Ordina il tuo cibo preferito"}
+						{language === "en" ? "Order your favourite food" : "Ordina il tuo cibo preferito"}
 					</Text>
 				</View>
-				<Image
-					source={images?.food_1}
-					style={{ width: 100, height: 100, alignSelf: "center" }}
-				/>
+				<Image source={images?.food_1} style={{ width: 100, height: 100, alignSelf: "center" }} />
 			</TouchableOpacity>
 
 			{/* Pick up div  */}
 			<TouchableOpacity
-				onPress={() => navigation.navigate("Pickup")}
+				onPress={() => RootNavigation.navigate("Pickup")}
 				style={{
 					...styles.foodDeliveryDivContainer,
 					backgroundColor: "#f772ab",
@@ -93,15 +82,10 @@ const SliderPlace = ({ navigation }) => {
 							lineHeight: 18,
 							fontSize: 12,
 						}}>
-						{language === "en"
-							? "Save delivery cost"
-							: "Risparmiare sui costi di consegna"}
+						{language === "en" ? "Save delivery cost" : "Risparmiare sui costi di consegna"}
 					</Text>
 				</View>
-				<Image
-					source={images?.takeawayimage}
-					style={{ width: 120, height: 120, alignSelf: "center" }}
-				/>
+				<Image source={images?.takeawayimage} style={{ width: 120, height: 120, alignSelf: "center" }} />
 			</TouchableOpacity>
 		</View>
 	);

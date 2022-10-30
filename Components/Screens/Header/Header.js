@@ -15,8 +15,6 @@ const Header = ({ navigation }) => {
 				height: 80,
 				alignItems: "center",
 				backgroundColor: "#ffffff",
-				borderBottomWidth: 2,
-				borderBottomColor: "#000000",
 			}}>
 			<View
 				style={{
@@ -73,9 +71,7 @@ const Header = ({ navigation }) => {
 					)}
 				</TouchableOpacity>
 
-				<TouchableOpacity
-					onPress={() => navigation.navigate("Basket")}
-					style={{ alignSelf: "center" }}>
+				<TouchableOpacity onPress={() => navigation.navigate("Basket")} style={{ alignSelf: "center" }}>
 					<Image
 						source={icons?.basket}
 						style={{

@@ -1,20 +1,13 @@
-import {
-	StyleSheet,
-	Text,
-	View,
-	ScrollView,
-	TouchableOpacity,
-	Image,
-	Alert,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, Alert, Platform } from "react-native";
 import React from "react";
 import axios from "axios";
-import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from "@react-native-community/netinfo";
 
 import { icons, images, axiosURL } from "../../../../constants";
 import { useStateValue } from "../../../../hooks/StateProvider";
+import IOSSafeAreaView from "../../../../SafeArea/iOSSafeArea";
+import AndroidSafeAreaView from "../../../../SafeArea/AndroidSafeArea";
 
 const AccountDetails = ({ navigation }) => {
 	const { userAPI } = useStateValue();
@@ -49,176 +42,149 @@ const AccountDetails = ({ navigation }) => {
 		}
 	};
 
-	return (
-		<View style={{ backgroundColor: "#f7f7f7", flex: 1 }}>
-			<SafeAreaView>
-				<ScrollView>
-					{/* Header Section Profile  */}
-					<View style={{ ...styles.profileContainer }}>
-						<Image
-							source={images.avatar_5}
-							style={{ ...styles.profileImage }}
-						/>
+	const Content = () => {
+		return (
+			<ScrollView>
+				{/* Header Section Profile  */}
+				<View style={{ ...styles.profileContainer }}>
+					<Image source={images.avatar_5} style={{ ...styles.profileImage }} />
 
+					<Text
+						style={{
+							...styles.profileName,
+						}}>{`${user?.firstName} ${user?.lastName}`}</Text>
+					<Text style={{ ...styles.profileEmail }}>{user?.email}</Text>
+
+					{/* edit profile button  */}
+
+					<TouchableOpacity
+						onPress={() => navigation.navigate("Profile")}
+						style={{
+							marginVertical: 10,
+							paddingHorizontal: 30,
+							paddingVertical: 10,
+							backgroundColor: "#ff4593",
+							borderRadius: 40,
+						}}>
 						<Text
 							style={{
-								...styles.profileName,
-							}}>{`${user?.firstName} ${user?.lastName}`}</Text>
-						<Text style={{ ...styles.profileEmail }}>{user?.email}</Text>
-
-						{/* edit profile button  */}
-
-						<TouchableOpacity
-							onPress={() => navigation.navigate("Profile")}
-							style={{
-								marginVertical: 10,
-								paddingHorizontal: 30,
-								paddingVertical: 10,
-								backgroundColor: "#ff4593",
-								borderRadius: 40,
+								color: "white",
+								fontSize: 15,
+								lineHeight: 20,
+								...styles.fonts,
 							}}>
-							<Text
-								style={{
-									color: "white",
-									fontSize: 15,
-									lineHeight: 20,
-									...styles.fonts,
-								}}>
-								{language === "en"
-									? "Edit Profile"
-									: "Modifica Profilo"}
-							</Text>
+							{language === "en" ? "Edit Profile" : "Modifica Profilo"}
+						</Text>
+					</TouchableOpacity>
+				</View>
+
+				{/* Settings Section  */}
+				<View style={styles.settingsMainSection}>
+					<Text style={styles.settingsSectionTitle}>{language === "en" ? "Content" : "Contenuto"}</Text>
+					{/* Settings Section's Container  */}
+					<View style={{ ...styles.settingsSectionContainer }}>
+						{/* Setting div  */}
+						<TouchableOpacity
+							style={{ ...styles.settingsSectionDiv }}
+							onPress={() => navigation.navigate("Favorite1")}>
+							<View style={{ ...styles.settingsDivC1 }}>
+								<Image source={icons.favorite} style={styles.settingsDivImg} />
+
+								<Text style={styles.settingsDivText}>{language === "en" ? "Favourites" : "Preferite"}</Text>
+							</View>
+							<Image source={icons.openRight} style={styles.settingsDivC2Img} />
+						</TouchableOpacity>
+
+						{/* Setting div 2 */}
+						<TouchableOpacity
+							style={{ ...styles.settingsSectionDiv }}
+							onPress={() => navigation.navigate("Orders1")}>
+							<View style={{ ...styles.settingsDivC1 }}>
+								<Image source={icons.orders} style={styles.settingsDivImg} />
+
+								<Text style={styles.settingsDivText}>{language === "en" ? "Orders" : "Ordini"}</Text>
+							</View>
+							<Image source={icons.openRight} style={styles.settingsDivC2Img} />
+						</TouchableOpacity>
+
+						{/* Setting div 3 */}
+						{/* <TouchableOpacity
+					style={{ ...styles.settingsSectionDiv }}
+					onPress={() => navigation.navigate("About")}>
+					<View style={{ ...styles.settingsDivC1 }}>
+						<Image
+							source={icons.about}
+							style={styles.settingsDivImg}
+						/>
+
+						<Text style={styles.settingsDivText}>About</Text>
+					</View>
+					<Image
+						source={icons.openRight}
+						style={styles.settingsDivC2Img}
+					/>
+				</TouchableOpacity> */}
+
+						{/* Setting div 4 */}
+						<TouchableOpacity
+							style={{ ...styles.settingsSectionDiv }}
+							onPress={() => {
+								if (language === "en") setLanguage("it");
+								else if (language === "it") setLanguage("en");
+							}}>
+							<View style={{ ...styles.settingsDivC1 }}>
+								<Image source={icons.language} style={styles.settingsDivImg} />
+
+								<Text style={styles.settingsDivText}>{language === "en" ? "Language" : "Linguaggio"}</Text>
+								<Text
+									style={{
+										...styles.settingsDivText,
+										color: "red",
+									}}>
+									{language === "en" ? `"English"` : `"Italian"`}
+								</Text>
+							</View>
+							{/* <Image
+						source={icons.openRight}
+						style={styles.settingsDivC2Img}
+					/> */}
 						</TouchableOpacity>
 					</View>
+				</View>
 
-					{/* Settings Section  */}
-					<View style={styles.settingsMainSection}>
-						<Text style={styles.settingsSectionTitle}>
-							{language === "en" ? "Content" : "Contenuto"}
-						</Text>
-						{/* Settings Section's Container  */}
-						<View style={{ ...styles.settingsSectionContainer }}>
-							{/* Setting div  */}
-							<TouchableOpacity
-								style={{ ...styles.settingsSectionDiv }}
-								onPress={() => navigation.navigate("Favorite1")}>
-								<View style={{ ...styles.settingsDivC1 }}>
-									<Image
-										source={icons.favorite}
-										style={styles.settingsDivImg}
-									/>
+				{/* Logout Section */}
 
-									<Text style={styles.settingsDivText}>
-										{language === "en" ? "Favourites" : "Preferite"}
-									</Text>
-								</View>
-								<Image
-									source={icons.openRight}
-									style={styles.settingsDivC2Img}
-								/>
-							</TouchableOpacity>
+				<View style={styles.settingsMainSection}>
+					<Text style={styles.settingsSectionTitle}>{language === "en" ? "Logout" : "Disconnettersi"}</Text>
+					<View style={styles.settingsSectionContainer}>
+						{/* Logout div  */}
+						<TouchableOpacity
+							onPress={handleLogout}
+							style={{
+								...styles.settingsSectionDiv,
+								paddingVertical: 15,
+							}}>
+							<View style={{ ...styles.settingsDivC1 }}>
+								<Image source={icons.logout} style={styles.settingsDivImg} />
 
-							{/* Setting div 2 */}
-							<TouchableOpacity
-								style={{ ...styles.settingsSectionDiv }}
-								onPress={() => navigation.navigate("Orders1")}>
-								<View style={{ ...styles.settingsDivC1 }}>
-									<Image
-										source={icons.orders}
-										style={styles.settingsDivImg}
-									/>
-
-									<Text style={styles.settingsDivText}>
-										{language === "en" ? "Orders" : "Ordini"}
-									</Text>
-								</View>
-								<Image
-									source={icons.openRight}
-									style={styles.settingsDivC2Img}
-								/>
-							</TouchableOpacity>
-
-							{/* Setting div 3 */}
-							{/* <TouchableOpacity
-								style={{ ...styles.settingsSectionDiv }}
-								onPress={() => navigation.navigate("About")}>
-								<View style={{ ...styles.settingsDivC1 }}>
-									<Image
-										source={icons.about}
-										style={styles.settingsDivImg}
-									/>
-
-									<Text style={styles.settingsDivText}>About</Text>
-								</View>
-								<Image
-									source={icons.openRight}
-									style={styles.settingsDivC2Img}
-								/>
-							</TouchableOpacity> */}
-
-							{/* Setting div 4 */}
-							<TouchableOpacity
-								style={{ ...styles.settingsSectionDiv }}
-								onPress={() => {
-									if (language === "en") setLanguage("it");
-									else if (language === "it") setLanguage("en");
-								}}>
-								<View style={{ ...styles.settingsDivC1 }}>
-									<Image
-										source={icons.language}
-										style={styles.settingsDivImg}
-									/>
-
-									<Text style={styles.settingsDivText}>
-										{language === "en" ? "Language" : "Linguaggio"}
-									</Text>
-									<Text
-										style={{
-											...styles.settingsDivText,
-											color: "red",
-										}}>
-										{language === "en" ? `"English"` : `"Italian"`}
-									</Text>
-								</View>
-								{/* <Image
-									source={icons.openRight}
-									style={styles.settingsDivC2Img}
-								/> */}
-							</TouchableOpacity>
-						</View>
+								<Text style={styles.settingsDivText}>{language === "en" ? "Logout" : "Disconnettersi"}</Text>
+							</View>
+						</TouchableOpacity>
 					</View>
+				</View>
 
-					{/* Logout Section */}
+				<View style={{ height: 100 }} />
+			</ScrollView>
+		);
+	};
 
-					<View style={styles.settingsMainSection}>
-						<Text style={styles.settingsSectionTitle}>
-							{language === "en" ? "Logout" : "Disconnettersi"}
-						</Text>
-						<View style={styles.settingsSectionContainer}>
-							{/* Logout div  */}
-							<TouchableOpacity
-								onPress={handleLogout}
-								style={{
-									...styles.settingsSectionDiv,
-									paddingVertical: 15,
-								}}>
-								<View style={{ ...styles.settingsDivC1 }}>
-									<Image
-										source={icons.logout}
-										style={styles.settingsDivImg}
-									/>
-
-									<Text style={styles.settingsDivText}>
-										{language === "en" ? "Logout" : "Disconnettersi"}
-									</Text>
-								</View>
-							</TouchableOpacity>
-						</View>
-					</View>
-
-					<View style={{ height: 100 }} />
-				</ScrollView>
-			</SafeAreaView>
+	return (
+		<View style={{ backgroundColor: "#f7f7f7", flex: 1 }}>
+			{Platform.OS === "ios" ? (
+				<IOSSafeAreaView>{Content()}</IOSSafeAreaView>
+			) : (
+				<AndroidSafeAreaView>{Content()}</AndroidSafeAreaView>
+			)}
 		</View>
 	);
 };
